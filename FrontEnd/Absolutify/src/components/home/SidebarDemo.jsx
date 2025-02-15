@@ -197,7 +197,7 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <div className="flex flex-1">
+    <div className="flex flex-1 ">
       <div className="flex flex-col flex-1 w-full h-full gap-2 p-1 mx-auto bg-white border rounded-tl-2xl dark:border-neutral-900 dark:bg-neutral-900">
         <Nav />
         <div className="flex gap-2">

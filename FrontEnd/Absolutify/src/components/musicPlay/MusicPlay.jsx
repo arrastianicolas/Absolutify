@@ -80,7 +80,8 @@ const TinyText = styled(Typography)({
 export default function MusicPlayerSlider() {
   const [position, setPosition] = React.useState(0);
   const [paused, setPaused] = React.useState(false);
-  const { currentTrack, playTrack, currentTrackId } = usePlayback();
+  const { currentTrack, playTrack, currentTrackId, setCurrentTrack } =
+    usePlayback();
 
   useEffect(() => {
     if (currentTrackId) {
@@ -88,14 +89,26 @@ export default function MusicPlayerSlider() {
     }
   }, [currentTrackId]);
 
-  const formatDuration = (value) => {
-    const minute = Math.floor(value / 60);
-    const secondLeft = Math.floor(value % 60);
-    return `${minute}:${secondLeft < 10 ? `0${secondLeft}` : secondLeft}`;
+  useEffect(() => {
+    if (currentTrack) {
+      localStorage.setItem("lastTrack", JSON.stringify(currentTrack));
+    }
+  }, [currentTrack]);
+  useEffect(() => {
+    const savedTrack = JSON.parse(localStorage.getItem("lastTrack"));
+    if (savedTrack) {
+      setCurrentTrack(savedTrack);
+    }
+  }, []);
+  const formatDuration = (time) => {
+    if (isNaN(time) || time === undefined) return "00:00";
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time % 60);
+    return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
   };
 
   return (
-    <Box sx={{ width: "100%", overflow: "hidden", position: "relative", p: 3 }}>
+    <Box className="relative w-full h-32 p-3 overflow-hidden">
       <Widget>
         <div className="flex flex-row items-center justify-between w-full mx-auto">
           <Box sx={{ display: "flex", alignItems: "center" }}>

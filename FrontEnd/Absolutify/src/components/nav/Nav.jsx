@@ -52,6 +52,7 @@ const Nav = () => {
   const handlePlayTrack = (track) => {
     setCurrentTrackId(track.id);
     setShowFind(false);
+    
 
     if (track.artists.length > 0) {
       setCurrentArtistId(track.artists[0].id); // Guarda el ID del primer artista de la canción

@@ -50,20 +50,22 @@ const Playlists = () => {
 
   return (
     <div className="grid justify-center mx-auto">
-      <h1 className="w-full text-4xl text-left text-white font-questrial">
+      <h1 className="w-full text-left text-white 2xl:text-4xl xl:text-3xl font-questrial">
         Mis Playlits
       </h1>
       <div className="flex items-center justify-center w-full mx-auto">
         <div className="grid w-full max-h-[600px] grid-cols-4 gap-6 overflow-y-auto  p-9">
           {playlists.length === 0 ? (
-            <p>No tienes playlists</p>
+            <p className="flex justify-center mx-auto text-4xl text-white font-questrial">
+              No tienes playlists
+            </p>
           ) : (
             playlists.map((playlist) => (
               <div
                 key={playlist.id}
-                className="bg-stone-200 bg-opacity-20 rounded-lg w-[350px] flex justify-start items-center hover:scale-110 hover:cursor-pointer transition-all relative group"
+                className="bg-stone-200 bg-opacity-20 rounded-lg 2xl:w-[350px] xl:w-[250px] xl:h-[78px] 2xl:h-[100px] flex justify-start items-center hover:scale-110 hover:cursor-pointer transition-all relative group"
               >
-                <div className="w-[100px]">
+                <div className="2xl:w-[100px] xl:w-[80px]">
                   <img
                     src={
                       playlist.images && playlist.images[0]
@@ -76,7 +78,7 @@ const Playlists = () => {
                 </div>
 
                 <div className="flex justify-start p-4 my-auto">
-                  <p className="font-questrial text-slate-100">
+                  <p className="font-questrial text-slate-100 2xl:text-lg xl:text-sm">
                     {playlist.name}
                   </p>
                 </div>

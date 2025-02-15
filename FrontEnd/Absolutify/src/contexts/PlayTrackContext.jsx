@@ -65,6 +65,7 @@ export const PlaybackProvider = ({ children }) => {
         setCurrentTrackId,
         setCurrentArtistId,
         currentArtistId,
+        setCurrentTrack,
       }}
     >
       {children}
