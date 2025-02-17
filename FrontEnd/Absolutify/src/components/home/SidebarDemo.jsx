@@ -206,11 +206,11 @@ const Dashboard = () => {
 
         {location.pathname === "/home" && (
           <>
-            <div className="grid justify-center grid-rows-2  max-h-[500px] space-y-32">
+            <div className="grid justify-center grid-rows-2  2xl:max-h-[500px] xl:max-h-[300px] space-y-32">
               <div className="flex items-center justify-center gap-32 my-44">
                 <div className="flex flex-col items-center justify-center gap-4 ">
                   <iframe
-                    className="flex mx-auto rounded-2xl 2xl:w-[900px] xl:w-[600px] 2xl:h-[360px] xl:h-[300px]  mt-8"
+                    className="flex mx-auto rounded-2xl 2xl:w-[900px] xl:w-[500px] 2xl:h-[360px] xl:h-[300px]  mt-8"
                     src="https://open.spotify.com/embed/playlist/37i9dQZEVXbMMy2roB9myp?utm_source=generator&theme=0"
                     width="100%"
                     allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
@@ -221,11 +221,11 @@ const Dashboard = () => {
                   <h2 className="2xl:text-3xl xl:text-2xl text-slate-300 font-questrial">
                     Mi top Artistas
                   </h2>
-                  <div className="grid w-full h-auto grid-cols-2 gap-10 mx-auto rounded-xl">
+                  <div className="grid w-full h-auto grid-cols-2 mx-auto 2xl:gap-10 xl:gap-7 rounded-xl">
                     {artistsTop
                       ? artistsTop.map((artist) => (
                           <motion.div
-                            className="relative 2xl:w-[160px] 2xl:h-[160px] xl:w-[130px] xl:h-[130px] overflow-x-hidden rounded-xl"
+                            className="relative 2xl:w-[160px] 2xl:h-[160px] xl:w-[120px] xl:h-[120px] xl:bottom-5 overflow-x-hidden rounded-xl"
                             key={artist.id}
                             whileHover={{ y: "-10%" }}
                             transition={{ duration: 1, ease: "easeInOut" }}

@@ -21,13 +21,15 @@ const Configuration = () => {
   return (
     <div className="flex flex-col items-center justify-center w-full mx-auto rounded-xl ">
       <div className="flex justify-center w-full mx-auto my-16">
-        <h2 className="text-4xl text-white font-questrial">Configuración</h2>
+        <h2 className="text-white 2xl:text-4xl xl:text-2xl font-questrial">
+          Configuración
+        </h2>
       </div>
-      <div className="flex justify-center mx-auto w-[900px]">
-        <div className="grid items-center justify-center my-5 grid-cols-1 mx-auto h-[200px] bg-neutral-800 shadow-md shadow-black rounded-xl">
+      <div className="flex justify-center mx-auto w-[900px] ">
+        <div className="grid items-center justify-center my-5 grid-cols-1 mx-auto 2xl:h-[200px] xl:h-[150px] bg-neutral-800 shadow-md shadow-black rounded-xl">
           <div className="flex items-center justify-between w-[500px] p-3">
-            <div className="max-w-[60px] max-h-[79px]">
-              <h3 className="text-xl font-semibold text-slate-200 font-questrial">
+            <div className="max-w-[60px] max-h-[79px] ">
+              <h3 className="font-semibold 2xl:text-xl xl:text-lg text-slate-200 font-questrial">
                 Cuenta
               </h3>
             </div>
@@ -39,7 +41,7 @@ const Configuration = () => {
           </div>
           <div className="flex items-center justify-between w-[500px] p-3 relative">
             <div className="max-w-[60px] max-h-[79px]">
-              <h3 className="text-xl font-semibold text-slate-200 font-questrial">
+              <h3 className="font-semibold 2xl:text-xl xl:text-lg text-slate-200 font-questrial">
                 Idioma
               </h3>
             </div>

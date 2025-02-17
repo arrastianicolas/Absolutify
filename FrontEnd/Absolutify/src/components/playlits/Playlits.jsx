@@ -54,7 +54,7 @@ const Playlists = () => {
         Mis Playlits
       </h1>
       <div className="flex items-center justify-center w-full mx-auto">
-        <div className="grid w-full max-h-[600px] grid-cols-4 gap-6 overflow-y-auto  p-9">
+        <div className="grid w-full 2xl:max-h-[600px] xl:max-h-[340px] grid-cols-4 gap-6 overflow-y-auto  p-9">
           {playlists.length === 0 ? (
             <p className="flex justify-center mx-auto text-4xl text-white font-questrial">
               No tienes playlists
@@ -65,7 +65,7 @@ const Playlists = () => {
                 key={playlist.id}
                 className="bg-stone-200 bg-opacity-20 rounded-lg 2xl:w-[350px] xl:w-[250px] xl:h-[78px] 2xl:h-[100px] flex justify-start items-center hover:scale-110 hover:cursor-pointer transition-all relative group"
               >
-                <div className="2xl:w-[100px] xl:w-[80px]">
+                <div className="2xl:w-[100px] xl:w-[80px] h-full">
                   <img
                     src={
                       playlist.images && playlist.images[0]
@@ -73,7 +73,7 @@ const Playlists = () => {
                         : "/png/logo.png"
                     }
                     alt="Playlist Logo"
-                    className="object-cover rounded-lg"
+                    className="object-cover h-full rounded-lg"
                   />
                 </div>
 
