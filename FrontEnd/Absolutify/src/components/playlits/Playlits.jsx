@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { FaPlay } from "react-icons/fa"; // Asegúrate de tener react-icons instalado
 import Spinner from "../spinner/Spinner";
+import { useTraduction } from "../../custom/TraductionDictionary";
 
 const Playlists = () => {
   const [playlists, setPlaylists] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  const { t } = useTraduction();
   useEffect(() => {
     // Función para obtener las playlists
     const fetchPlaylists = async () => {
@@ -50,11 +51,11 @@ const Playlists = () => {
 
   return (
     <div className="grid justify-center mx-auto">
-      <h1 className="w-full text-left text-white 2xl:text-4xl xl:text-3xl font-questrial">
-        Mis Playlits
+      <h1 className="w-full text-3xl text-left text-white 2xl:text-4xl font-questrial">
+        {t("playlists")}
       </h1>
       <div className="flex items-center justify-center w-full mx-auto">
-        <div className="grid w-full 2xl:max-h-[600px] xl:max-h-[340px] grid-cols-4 gap-6 overflow-y-auto  p-9">
+        <div className="grid  w-full 2xl:max-h-[600px] xl:max-h-[340px] max-h-[600px] md:grid-cols-4 gap-6 overflow-y-auto  p-9">
           {playlists.length === 0 ? (
             <p className="flex justify-center mx-auto text-4xl text-white font-questrial">
               No tienes playlists
@@ -65,7 +66,7 @@ const Playlists = () => {
                 key={playlist.id}
                 className="bg-stone-200 bg-opacity-20 rounded-lg 2xl:w-[350px] xl:w-[250px] xl:h-[78px] 2xl:h-[100px] flex justify-start items-center hover:scale-110 hover:cursor-pointer transition-all relative group"
               >
-                <div className="2xl:w-[100px] xl:w-[80px] h-full">
+                <div className="2xl:w-[100px] xl:w-[80px] w-[90px] h-full ">
                   <img
                     src={
                       playlist.images && playlist.images[0]
@@ -79,7 +80,7 @@ const Playlists = () => {
 
                 <div className="flex justify-start p-4 my-auto">
                   <p className="font-questrial text-slate-100 2xl:text-lg xl:text-sm">
-                    {playlist.name}
+                    {playlist?.name || "Playlist"}
                   </p>
                 </div>
 

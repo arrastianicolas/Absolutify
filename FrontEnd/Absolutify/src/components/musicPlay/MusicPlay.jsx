@@ -12,13 +12,14 @@ import VolumeUpRounded from "@mui/icons-material/VolumeUpRounded";
 import VolumeDownRounded from "@mui/icons-material/VolumeDownRounded";
 import React, { useEffect } from "react";
 import { usePlayback } from "../../contexts/PlayTrackContext";
+import { useTraduction } from "../../custom/TraductionDictionary";
 
 const Widget = styled("div")(({ theme }) => ({
   padding: 16,
   borderRadius: 16,
   width: "100%",
   height: "150px",
-  maxWidth: "100",
+  maxWidth: "100%",
   margin: "auto",
   position: "relative",
   zIndex: 1,
@@ -27,6 +28,9 @@ const Widget = styled("div")(({ theme }) => ({
   ...theme.applyStyles("dark", {
     backgroundColor: "rgba(0,0,0,0.6)",
   }),
+  "@media (max-width: 768px)": {
+    height: "200px", // Altura diferente en dispositivos móviles
+  },
 }));
 
 const CoverImage = styled("div")({
@@ -54,6 +58,7 @@ export default function MusicPlayerSlider() {
   const [paused, setPaused] = React.useState(false);
   const { currentTrack, playTrack, currentTrackId, setCurrentTrack } =
     usePlayback();
+  const { t } = useTraduction();
 
   useEffect(() => {
     if (currentTrackId) {
@@ -80,9 +85,9 @@ export default function MusicPlayerSlider() {
   };
 
   return (
-    <Box className="relative bottom-0 w-full overflow-hidden ">
+    <Box className="fixed bottom-0 max-w-full overflow-hidden left-4 md:left-0 md:pr-0 md:overflow-y-hidden md:relative ">
       <Widget>
-        <div className="flex flex-row items-center justify-between w-full mx-auto">
+        <div className="flex-row items-center justify-between w-full mx-auto md:flex">
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <CoverImage>
               <img
@@ -111,11 +116,11 @@ export default function MusicPlayerSlider() {
                 <b>{currentTrack?.name || "Unknown name"}</b>
               </Typography>
               <Typography noWrap sx={{ letterSpacing: -0.25 }}>
-                {currentTrack?.type || "Unknown Type"}
+                {currentTrack?.type === "track" ? t("cancion") : "playlists"}
               </Typography>
             </Box>
           </Box>
-          <div className="2xl:w-[700px] xl:w-[500px] relative top-4 2xl:right-20 xl:right-[80px] flex-shrink-0">
+          <div className="2xl:w-[700px] xl:w-[500px] w-[300px] md:mx-0 mx-auto relative md:top-4 2xl:right-20 xl:right-[80px] flex-shrink-0">
             <Slider
               aria-label="time-indicator"
               size="small"
@@ -158,7 +163,7 @@ export default function MusicPlayerSlider() {
               })}
             />
           </div>
-          <div className="2xl:w-[200px] xl:w-[200px] relative top-[18px] 2xl:right-5 xl:right-16">
+          <div className="2xl:w-[200px] xl:w-[200px] relative md:top-[20px] w-[150px] bottom-[98px] left-48 md:bottom-0 md:left-0 2xl:right-5 xl:right-16">
             <Stack
               spacing={2}
               direction="row"
@@ -178,6 +183,7 @@ export default function MusicPlayerSlider() {
               <Slider
                 aria-label="Volume"
                 defaultValue={30}
+                orientation="horizontal"
                 sx={(t) => ({
                   color: "rgba(0,0,0,0.87)",
                   "& .MuiSlider-track": {
@@ -203,7 +209,7 @@ export default function MusicPlayerSlider() {
             </Stack>
           </div>
         </div>
-        <Box className="flex items-center justify-center -mt-9 2xl:gap-[640px] xl:gap-[450px]">
+        <Box className="flex items-center justify-center md:-mt-9 -mt-20 2xl:gap-[640px] xl:gap-[450px] gap-[250px]">
           <TinyText>{formatDuration(position)}</TinyText>
           <TinyText>
             -

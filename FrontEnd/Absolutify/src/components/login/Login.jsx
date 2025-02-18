@@ -1,9 +1,10 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTraduction } from "../../custom/TraductionDictionary";
 
 const Login = () => {
   const navigate = useNavigate();
-
+  const { t } = useTraduction();
   useEffect(() => {
     const isLoggedIn = localStorage.getItem("isLoggedIn");
     if (isLoggedIn === "true") {
@@ -27,9 +28,7 @@ const Login = () => {
 
       {/* Contenido */}
       <div className="relative z-10 max-w-4xl px-6 text-center">
-        <h1 className="text-6xl font-light text-white">
-          ¡Bienvenidos a Absolutify!
-        </h1>
+        <h1 className="text-6xl font-light text-white">{t("welcome")}</h1>
         <p className="mt-6 text-lg leading-7 text-gray-300">
           Absolutify es un proyecto de práctica de Front-End que utiliza la{" "}
           <span className="font-semibold text-white">API de Spotify</span> para
@@ -41,7 +40,7 @@ const Login = () => {
           className="px-8 py-3 mt-10 text-lg text-white transition-all rounded-lg shadow-md font-questrial bg-cyan-900 hover:bg-neutral-500"
           onClick={fetchLoginSpotify}
         >
-          Continuar
+          {t("continuar")}
         </button>
         <p className="mt-6 text-sm italic text-gray-400">
           Este proyecto utiliza la API de Spotify, pero no está afiliado ni

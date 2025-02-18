@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { IoIosSearch } from "react-icons/io";
 import { usePlayback } from "../../contexts/PlayTrackContext";
+import { useTraduction } from "../../custom/TraductionDictionary";
 
 const Nav = () => {
   const [showFind, setShowFind] = useState(false);
   const [tracks, setTracks] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const { setCurrentTrackId, setCurrentArtistId } = usePlayback();
-
+  const { t } = useTraduction();
   const fetchTracks = async (query) => {
     const token = localStorage.getItem("spotifyAccessToken");
     if (!token) {
@@ -52,7 +53,6 @@ const Nav = () => {
   const handlePlayTrack = (track) => {
     setCurrentTrackId(track.id);
     setShowFind(false);
-    
 
     if (track.artists.length > 0) {
       setCurrentArtistId(track.artists[0].id); // Guarda el ID del primer artista de la canción
@@ -60,10 +60,10 @@ const Nav = () => {
   };
 
   return (
-    <div className="relative w-full max-w-[500px] hidden md:flex justify-center mx-auto">
+    <div className="relative w-full max-w-[500px]  flex justify-center mx-auto">
       <IoIosSearch className="absolute text-xl transform -translate-y-1/2 left-3 top-1/2 text-stone-600" />
       <input
-        placeholder="¿Qué Quieres Escuchar?"
+        placeholder={t("placeHolder")}
         className="w-full p-2 pl-10 border-2 focus:outline-none bg-stone-300 font-questrial border-stone-700 rounded-2xl placeholder:text-stone-900"
         onChange={handleChangeSearch}
         value={searchTerm}
@@ -73,7 +73,7 @@ const Nav = () => {
           <ul>
             {tracks.map((track) => (
               <div
-                className="flex items-center justify-between w-[500px]  p-3"
+                className="flex items-center justify-between max-w-[500px]  p-3"
                 key={track.id}
               >
                 <div className="max-w-[60px] max-h-[79px]">

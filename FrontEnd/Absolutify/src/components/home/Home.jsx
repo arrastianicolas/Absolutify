@@ -101,7 +101,7 @@ const Home = () => {
   if (loading) return <Spinner />;
 
   return (
-    <div className="h-screen bg-stone-900">
+    <div className="h-screen bg-neutral-900 ">
       <SidebarDemo logout={logout} />
     </div>
   );

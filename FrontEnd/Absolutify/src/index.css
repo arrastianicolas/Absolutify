@@ -12,7 +12,7 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: white;
+  background-color: rgb(83, 83, 80);
   border: solid 1px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
 }

@@ -13,34 +13,36 @@ import { DiAptana } from "react-icons/di";
 import { GoArrowLeft } from "react-icons/go";
 
 import { useProfile } from "../../contexts/UserContext";
+import { useTraduction } from "../../custom/TraductionDictionary";
 
 export function SidebarDemo({ logout }) {
   const { user } = useProfile();
+  const { t } = useTraduction();
 
   const links = [
     {
-      label: "Mis Playlits",
+      label: t("playlists"),
       to: "/home/playlits",
       icon: (
         <RiPlayListFill className="flex-shrink-0 w-5 h-5 text-neutral-700 dark:text-neutral-200" />
       ),
     },
     {
-      label: "Perfil",
+      label: t("perfil"),
       to: "/home/perfil",
       icon: (
         <BsPersonFill className="flex-shrink-0 w-5 h-5 text-neutral-700 dark:text-neutral-200" />
       ),
     },
     {
-      label: "Configuracion",
+      label: t("configuracion"),
       to: "/home/configuracion",
       icon: (
         <DiAptana className="flex-shrink-0 w-5 h-5 text-neutral-700 dark:text-neutral-200" />
       ),
     },
     {
-      label: "Cerrar Sesion",
+      label: t("logout"),
       onClick: logout,
 
       icon: (
@@ -52,7 +54,7 @@ export function SidebarDemo({ logout }) {
   return (
     <div
       className={cn(
-        "rounded-md flex flex-col md:flex-row bg-gray-100 dark:bg-neutral-500 w-full flex-1 mx-auto   overflow-hidden",
+        "rounded-md flex flex-col md:flex-row   w-full flex-1 mx-auto   overflow-hidden",
         "h-full"
       )}
     >
@@ -137,7 +139,7 @@ const Dashboard = () => {
   const { user } = useProfile();
   const [newReleases, setNewReleases] = useState([]);
   const [artistsTop, setArtistsTop] = useState([]);
-
+  const { t } = useTraduction();
   useEffect(() => {
     const fetchRecommendations = async () => {
       const token = localStorage.getItem("spotifyAccessToken");
@@ -198,7 +200,7 @@ const Dashboard = () => {
 
   return (
     <div className="flex flex-1 ">
-      <div className="flex flex-col flex-1 w-full h-full gap-2 p-1 mx-auto bg-white border rounded-tl-2xl dark:border-neutral-900 dark:bg-neutral-900">
+      <div className="flex flex-col flex-1 w-full h-full gap-2 p-1 mx-auto border border-neutral-900 rounded-tl-2xl bg-neutral-900">
         <Nav />
         <div className="flex gap-2">
           <Outlet />
@@ -206,26 +208,26 @@ const Dashboard = () => {
 
         {location.pathname === "/home" && (
           <>
-            <div className="grid justify-center grid-rows-2  2xl:max-h-[500px] xl:max-h-[300px] space-y-32">
-              <div className="flex items-center justify-center gap-32 my-44">
+            <div className="grid justify-center max-h-[600px] grid-rows-2 xl:space-y-20 2xl:space-y-44 overflow-y-scroll md:overflow-visible md:max-h-[400px]">
+              <div className="grid items-center justify-center md:flex md:gap-32 md:my-44 ">
                 <div className="flex flex-col items-center justify-center gap-4 ">
                   <iframe
-                    className="flex mx-auto rounded-2xl 2xl:w-[900px] xl:w-[500px] 2xl:h-[360px] xl:h-[300px]  mt-8"
+                    className="flex mx-auto rounded-2xl 2xl:w-[900px] xl:w-[500px] 2xl:h-[360px] xl:h-[300px] h-[450px] md:mt-8"
                     src="https://open.spotify.com/embed/playlist/37i9dQZEVXbMMy2roB9myp?utm_source=generator&theme=0"
                     width="100%"
                     allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
                     loading="lazy"
                   ></iframe>
                 </div>
-                <div className="flex flex-col items-center justify-center gap-5 mb-5">
-                  <h2 className="2xl:text-3xl xl:text-2xl text-slate-300 font-questrial">
-                    Mi top Artistas
+                <div className="relative flex flex-col items-center justify-center gap-4 md:gap-11 2xl:top-4 top-4 md:top-0">
+                  <h2 className="text-2xl 2xl:text-3xl text-slate-300 font-questrial">
+                    {t("artists")}
                   </h2>
-                  <div className="grid w-full h-auto grid-cols-2 mx-auto 2xl:gap-10 xl:gap-7 rounded-xl">
+                  <div className="grid w-full h-auto grid-cols-2 gap-5 mx-auto 2xl:gap-10 xl:gap-7 rounded-xl">
                     {artistsTop
                       ? artistsTop.map((artist) => (
                           <motion.div
-                            className="relative 2xl:w-[160px] 2xl:h-[160px] xl:w-[120px] xl:h-[120px] xl:bottom-5 overflow-x-hidden rounded-xl"
+                            className="relative 2xl:w-[160px] 2xl:h-[160px] xl:w-[120px] xl:h-[120px] w-[160px] xl:bottom-10 overflow-x-hidden rounded-xl"
                             key={artist.id}
                             whileHover={{ y: "-10%" }}
                             transition={{ duration: 1, ease: "easeInOut" }}
@@ -252,19 +254,19 @@ const Dashboard = () => {
                   </div>
                 </div>
               </div>
-              <div className="flex flex-col items-center justify-center 2xl:h-[280px] xl:h-[150px] max-w-[1500px]  overflow-y-hidden ">
+              <div className="md:flex hidden flex-col items-center justify-center 2xl:h-[280px] xl:h-[150px] h-[900px] 2xl:max-w-[1800px] xl:nax-w-[1500px] overflow-x-hidden md:overflow-y-hidden  ">
                 <h2 className="relative text-2xl 2xl:text-3xl 2xl:mt-8 bottom-2 text-slate-300 font-questrial">
-                  Nuevos Albunes
+                  {t("albunes")}
                 </h2>
                 <motion.div
-                  className="flex w-full gap-5"
+                  className="w-full md:flex md:gap-5"
                   whileHover={{ x: "-50%" }}
                   transition={{ duration: 4, ease: "easeInOut" }}
                 >
                   {newReleases
                     ? newReleases.map((releases) => (
                         <div
-                          className="2xl:w-[500px] 2xl:h-[200px] xl:w-[100px] xl:h-[100px]"
+                          className="2xl:w-[600px] 2xl:h-[200px] xl:w-[100px] xl:h-[100px]"
                           key={releases.id}
                         >
                           <img
