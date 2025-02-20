@@ -20,13 +20,13 @@ const User = () => {
         <p className="text-4xl font-bold text-center 2xl:text-7xl text-stone-400">
           {user?.display_name}
         </p>
-        <p className="my-4 text-center 2xl:text-lg xl:text-sm text-neutral-500">
+        <p className="my-4 text-center 2xl:text-lg xl:text-sm font-questrial text-neutral-500">
           {t("seguidores")}: {user?.followers.total}
         </p>
 
         <div className="flex items-center justify-center mx-auto my-4">
           <div className="flex items-center justify-center p-4 mx-auto rounded-full bg-zinc-900">
-            <p className="2xl:text-lg text-slate-300">
+            <p className="2xl:text-lg text-slate-300 font-questrial">
               {user?.email || "No disponible"}
             </p>
           </div>

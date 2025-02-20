@@ -13,7 +13,8 @@ const Login = () => {
   }, [navigate]);
 
   const fetchLoginSpotify = () => {
-    window.location.href = "http://localhost:3308/spotify/login";
+    window.location.href =
+      "http://localhost:3308/spotify/login?show_dialog=true";
   };
 
   return (

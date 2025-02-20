@@ -3,8 +3,6 @@ const qs = require("qs");
 const dotenv = require("dotenv");
 
 dotenv.config();
-let accessToken =
-  "BQDBKJ5eo5jxbtpWjVOj7ryS84khybFpP_lTqzV7uV-T_m0cTfwvdn5BnBSKPxKgEb11"; // Guardar el token en memoria para simplicidad. En producción, almacénalo de manera segura.
 
 const clientId = process.env.SPOTIFY_CLIENT_ID;
 const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;

@@ -36,7 +36,7 @@ const Configuration = () => {
               </h3>
             </div>
             <div>
-              <button className="flex items-center gap-3 px-2 py-1 font-bold text-black transition-all bg-white border border-black rounded-full hover:bg-neutral-500">
+              <button className="flex items-center gap-3 px-2 py-1 font-questrial font-bold text-black transition-all bg-white border border-black rounded-full hover:bg-neutral-500">
                 {t("editar")} <MdModeEdit />
               </button>
             </div>
@@ -50,7 +50,7 @@ const Configuration = () => {
             <div>
               <button
                 onClick={handleClickChange}
-                className="flex items-center gap-3 px-2 py-1 font-bold text-black transition-all bg-white border border-black rounded-full hover:bg-neutral-500"
+                className="flex items-center gap-3 px-2 py-1  font-questrial font-bold text-black transition-all bg-white border border-black rounded-full hover:bg-neutral-500"
               >
                 {selectedLanguage === "es" ? t("español") : t("ingles")}{" "}
                 {show ? <IoIosArrowDown /> : <IoIosArrowUp />}
@@ -59,13 +59,13 @@ const Configuration = () => {
                 <div className="absolute mt-2 bg-white  border border-black rounded-xl shadow-md md:top-9 md:left-[391px] left-48">
                   <button
                     onClick={() => handleLanguageSelect("es")}
-                    className="block w-full px-4 py-2 text-left transition-all hover:scale-105"
+                    className="block w-full px-4 py-2 text-left font-questrial  transition-all hover:scale-105"
                   >
                     {t("español")}
                   </button>
                   <button
                     onClick={() => handleLanguageSelect("en")}
-                    className="block w-full px-4 py-2 text-left transition-all hover:scale-105"
+                    className="block w-full px-4 py-2 text-left font-questrial transition-all hover:scale-105"
                   >
                     {t("ingles")}
                   </button>

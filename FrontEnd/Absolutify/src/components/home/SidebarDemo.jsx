@@ -224,59 +224,58 @@ const Dashboard = () => {
                     {t("artists")}
                   </h2>
                   <div className="grid w-full h-auto grid-cols-2 gap-5 mx-auto 2xl:gap-10 xl:gap-7 rounded-xl">
-                    {artistsTop
-                      ? artistsTop.map((artist) => (
-                          <motion.div
-                            className="relative 2xl:w-[160px] 2xl:h-[160px] xl:w-[120px] xl:h-[120px] w-[160px] xl:bottom-10 overflow-x-hidden rounded-xl"
-                            key={artist.id}
-                            whileHover={{ y: "-10%" }}
-                            transition={{ duration: 1, ease: "easeInOut" }}
-                          >
-                            {/* Imagen con efecto de oscurecimiento */}
-                            <motion.img
-                              src={artist.images[0].url}
-                              alt={artist.name}
-                              className="object-cover w-full h-full max-h-[200px]"
-                              whileHover={{ opacity: 0.5 }}
-                            />
+                    {artistsTop.map((artist) => (
+                      <motion.div
+                        className="relative 2xl:w-[160px] 2xl:h-[160px] xl:w-[120px] xl:h-[120px] w-[160px] xl:bottom-10 overflow-x-hidden rounded-xl"
+                        key={artist.id}
+                        whileHover={{ y: "-10%" }}
+                        transition={{ duration: 1, ease: "easeInOut" }}
+                      >
+                        <motion.img
+                          src={artist.images[0].url}
+                          alt={artist.name}
+                          className="object-cover w-full h-full max-h-[200px]"
+                          whileHover={{ opacity: 0.5 }}
+                        />
 
-                            {/* Nombre del artista (oculto por defecto) */}
-                            <motion.div
-                              className="absolute inset-0 flex items-center justify-center text-lg bg-black bg-opacity-50 opacity-0 text-slate-300"
-                              whileHover={{ opacity: 1 }}
-                              transition={{ duration: 0.5 }}
-                            >
-                              {artist.name}
-                            </motion.div>
-                          </motion.div>
-                        ))
-                      : "a"}
+                        <motion.div
+                          className="absolute inset-0 flex items-center justify-center text-lg bg-black bg-opacity-50 opacity-0 text-slate-300"
+                          whileHover={{ opacity: 1 }}
+                          transition={{ duration: 0.5 }}
+                        >
+                          {artist.name}
+                        </motion.div>
+                      </motion.div>
+                    ))}
                   </div>
                 </div>
               </div>
-              <div className="md:flex hidden flex-col items-center justify-center 2xl:h-[280px] xl:h-[150px] h-[900px] 2xl:max-w-[1800px] xl:nax-w-[1500px] overflow-x-hidden md:overflow-y-hidden  ">
+              <div className="md:flex hidden flex-col items-center justify-center 2xl:h-[280px] xl:h-[150px] h-[900px] 2xl:max-w-[1900px] xl:nax-w-[1500px] overflow-x-hidden md:overflow-y-hidden  ">
                 <h2 className="relative text-2xl 2xl:text-3xl 2xl:mt-8 bottom-2 text-slate-300 font-questrial">
                   {t("albunes")}
                 </h2>
                 <motion.div
-                  className="w-full md:flex md:gap-5"
-                  whileHover={{ x: "-50%" }}
-                  transition={{ duration: 4, ease: "easeInOut" }}
+                  className="w-full flex gap-5"
+                  whileInView={{ x: "-50%" }}
+                  transition={{
+                    duration: 8,
+                    ease: "easeInOut",
+                    repeat: Infinity,
+                    repeatType: "mirror",
+                  }}
                 >
-                  {newReleases
-                    ? newReleases.map((releases) => (
-                        <div
-                          className="2xl:w-[600px] 2xl:h-[200px] xl:w-[100px] xl:h-[100px]"
-                          key={releases.id}
-                        >
-                          <img
-                            src={releases.images[0].url}
-                            alt="nuevos albunes"
-                            className="object-fill w-full h-full rounded-lg"
-                          />
-                        </div>
-                      ))
-                    : "a"}
+                  {newReleases.map((releases) => (
+                    <div
+                      className="2xl:w-[250px] 2xl:h-[200px] xl:w-[100px] xl:h-[100px]"
+                      key={releases.id}
+                    >
+                      <img
+                        src={releases.images[0].url}
+                        alt="nuevos albunes"
+                        className="object-fill w-full h-full rounded-lg"
+                      />
+                    </div>
+                  ))}
                 </motion.div>
               </div>
             </div>

@@ -77,6 +77,11 @@ export default function MusicPlayerSlider() {
       setCurrentTrack(savedTrack);
     }
   }, []);
+
+  const handleSliderChange = (_, value) => {
+    const durationInSeconds = currentTrack?.duration_ms / 1000;
+    setPosition(Math.min(value, durationInSeconds));
+  };
   const formatDuration = (time) => {
     if (isNaN(time) || time === undefined) return "00:00";
     const minutes = Math.floor(time / 60);
@@ -124,16 +129,14 @@ export default function MusicPlayerSlider() {
             <Slider
               aria-label="time-indicator"
               size="small"
-              value={position}
+              value={isNaN(position) ? 0 : position}
               min={0}
-              step={1}
               max={
-                currentTrack?.duration_ms
-                  ? currentTrack.duration_ms / 60000
-                  : 200
+                currentTrack?.duration_ms ? currentTrack.duration_ms / 1000 : 1
               }
-              onChange={(_, value) => setPosition(value)}
-              sx={(t) => ({
+              step={1}
+              onChange={handleSliderChange}
+              sx={(x) => ({
                 color: "rgba(0,0,0,0.87)",
                 height: 4,
                 "& .MuiSlider-thumb": {
@@ -143,12 +146,6 @@ export default function MusicPlayerSlider() {
                   "&::before": {
                     boxShadow: "0 2px 12px 0 rgba(0,0,0,0.4)",
                   },
-                  "&:hover, &.Mui-focusVisible": {
-                    boxShadow: `0px 0px 0px 8px ${"rgb(0 0 0 / 16%)"}`,
-                    ...t.applyStyles("dark", {
-                      boxShadow: `0px 0px 0px 8px ${"rgb(255 255 255 / 16%)"}`,
-                    }),
-                  },
                   "&.Mui-active": {
                     width: 20,
                     height: 20,
@@ -157,9 +154,6 @@ export default function MusicPlayerSlider() {
                 "& .MuiSlider-rail": {
                   opacity: 0.28,
                 },
-                ...t.applyStyles("dark", {
-                  color: "#fff",
-                }),
               })}
             />
           </div>
@@ -212,10 +206,7 @@ export default function MusicPlayerSlider() {
         <Box className="flex items-center justify-center md:-mt-9 -mt-20 2xl:gap-[640px] xl:gap-[450px] gap-[250px]">
           <TinyText>{formatDuration(position)}</TinyText>
           <TinyText>
-            -
-            {formatDuration(
-              Math.max(0, currentTrack?.duration_ms / 1000 - position)
-            )}
+            -{formatDuration(currentTrack?.duration_ms / 1000 - position)}
           </TinyText>
         </Box>
         <Box

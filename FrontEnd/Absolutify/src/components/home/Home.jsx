@@ -32,27 +32,27 @@ const Home = () => {
 
   const logout = async () => {
     try {
-      // Enviar la solicitud de logout al servidor
       const response = await fetch("http://localhost:3308/logout", {
         method: "POST",
-        credentials: "include", // Asegúrate de enviar las cookies
+        credentials: "include",
       });
 
-      const result = await response.json();
       if (response.ok) {
-        console.log(result.message); // "Logout exitoso"
-
-        // Limpiar localStorage si es necesario
+        // Eliminar tokens y cookies en el frontend
         localStorage.removeItem("spotifyAccessToken");
         localStorage.removeItem("isLoggedIn");
 
-        // Redirigir al usuario
-        navigate("/"); // O cualquier otra acción que quieras realizar
+        document.cookie =
+          "spotifyAccessToken=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+        document.cookie =
+          "spotifyRefreshToken=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+
+        navigate("/");
       } else {
-        console.error("Error al hacer logout", result);
+        console.error("Error al hacer logout:", await response.json());
       }
     } catch (error) {
-      console.error("Error al hacer la solicitud de logout", error);
+      console.error("Error en la solicitud de logout:", error);
     }
   };
 
@@ -65,7 +65,6 @@ const Home = () => {
       if (response.status === 401) {
         console.warn("Token expirado, intentando refrescar...");
 
-        // Intentar refrescar el token antes de cerrar sesión
         const refreshed = await refreshToken();
         if (!refreshed) {
           logout();
