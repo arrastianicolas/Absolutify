@@ -5,12 +5,12 @@ const User = () => {
   const { user } = useProfile();
   const { t } = useTraduction();
   return (
-    <div className="flex justify-center w-full mx-auto 2xl:h-full xl:h-80">
+    <div className="flex justify-center w-full mx-auto 2xl:h-full xl:h-80 ">
       <div className="grid justify-center w-full mx-auto rounded-xl">
         <h2 className="my-6 text-2xl text-center text-white 2xl:text-4xl font-questrial">
           {t("perfil")}
         </h2>
-        <div className="2xl:w-[200px] 2xl:h-[200px]  w-[150px] h-[150px]  rounded-xl mx-auto my-4">
+        <div className="2xl:w-[200px] 2xl:h-[200px]   w-[140px] h-[140px]  md:rounded-xl mx-auto md:my-4">
           <img
             src={user?.images?.[0]?.url || "/png/logo.png"}
             alt="Imagen de perfil"

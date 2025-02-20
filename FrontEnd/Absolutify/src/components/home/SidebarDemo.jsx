@@ -255,7 +255,7 @@ const Dashboard = () => {
                   {t("albunes")}
                 </h2>
                 <motion.div
-                  className="w-full flex gap-5"
+                  className="flex w-full gap-5"
                   whileInView={{ x: "-50%" }}
                   transition={{
                     duration: 8,

@@ -90,7 +90,7 @@ export default function MusicPlayerSlider() {
   };
 
   return (
-    <Box className="fixed bottom-0 max-w-full overflow-hidden left-4 md:left-0 md:pr-0 md:overflow-y-hidden md:relative ">
+    <Box className="fixed bottom-0 w-full max-w-md transform -translate-x-1/2 md:relative md:transform-none md:left-0 md:translate-x-0 left-1/2 md:max-w-full ">
       <Widget>
         <div className="flex-row items-center justify-between w-full mx-auto md:flex">
           <Box sx={{ display: "flex", alignItems: "center" }}>
@@ -125,7 +125,7 @@ export default function MusicPlayerSlider() {
               </Typography>
             </Box>
           </Box>
-          <div className="2xl:w-[700px] xl:w-[500px] w-[300px] md:mx-0 mx-auto relative md:top-4 2xl:right-20 xl:right-[80px] flex-shrink-0">
+          <div className="2xl:w-[700px] xl:w-[500px] w-[300px] md:mx-0 mx-auto relative md:top-4 2xl:right-20 xl:right-[80px] md:right-[105px] flex-shrink-0">
             <Slider
               aria-label="time-indicator"
               size="small"
@@ -136,7 +136,7 @@ export default function MusicPlayerSlider() {
               }
               step={1}
               onChange={handleSliderChange}
-              sx={(x) => ({
+              sx={() => ({
                 color: "rgba(0,0,0,0.87)",
                 height: 4,
                 "& .MuiSlider-thumb": {
@@ -157,7 +157,7 @@ export default function MusicPlayerSlider() {
               })}
             />
           </div>
-          <div className="2xl:w-[200px] xl:w-[200px] relative md:top-[20px] w-[150px] bottom-[98px] left-48 md:bottom-0 md:left-0 2xl:right-5 xl:right-16">
+          <div className="2xl:w-[200px] xl:w-[200px] relative md:top-[20px]  w-[150px] bottom-[98px] left-48 md:bottom-0 md:left-0 2xl:right-5 xl:right-16">
             <Stack
               spacing={2}
               direction="row"

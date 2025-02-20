@@ -64,6 +64,7 @@ const Nav = () => {
   };
 
   const handlePlayTrack = (track) => {
+    setSearchTerm("");
     setCurrentTrackId(track.id);
     setShowFind(false);
 

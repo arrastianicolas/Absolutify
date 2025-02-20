@@ -19,4 +19,8 @@
 
 html {
   scroll-behavior: smooth;
+
+  overflow-y: auto !important;
+  overflow-x: hidden;
+  height: 100%;
 }
