@@ -208,8 +208,8 @@ const Dashboard = () => {
 
         {location.pathname === "/home" && (
           <>
-            <div className="grid justify-center max-h-[600px] grid-rows-2 xl:space-y-20 2xl:space-y-44 overflow-y-scroll md:overflow-visible md:max-h-[400px]">
-              <div className="grid items-center justify-center md:flex md:gap-32 md:my-44 ">
+            <div className="grid justify-center max-h-[500px] grid-rows-2 xl:space-y-20 2xl:space-y-44 overflow-y-scroll md:overflow-visible md:max-h-[400px]">
+              <div className="grid items-center justify-center gap-2 md:flex md:gap-32 md:my-44 ">
                 <div className="flex flex-col items-center justify-center gap-4 ">
                   <iframe
                     className="flex mx-auto rounded-2xl 2xl:w-[900px] xl:w-[500px] 2xl:h-[360px] xl:h-[300px] h-[450px] md:mt-8"
@@ -226,15 +226,15 @@ const Dashboard = () => {
                   <div className="grid w-full h-auto grid-cols-2 gap-5 mx-auto 2xl:gap-10 xl:gap-7 rounded-xl">
                     {artistsTop.map((artist) => (
                       <motion.div
-                        className="relative 2xl:w-[160px] 2xl:h-[160px] xl:w-[120px] xl:h-[120px] w-[160px] xl:bottom-10 overflow-x-hidden rounded-xl"
+                        className="relative 2xl:w-[160px] 2xl:h-[160px] xl:w-[120px] xl:h-[120px] w-[160px] h-[160px] xl:bottom-10 overflow-x-hidden rounded-xl"
                         key={artist.id}
                         whileHover={{ y: "-10%" }}
-                        transition={{ duration: 1, ease: "easeInOut" }}
+                        transition={{ duration: 5, ease: "easeInOut" }}
                       >
                         <motion.img
                           src={artist.images[0].url}
                           alt={artist.name}
-                          className="object-cover w-full h-full max-h-[200px]"
+                          className="object-cover w-full h-full max-h-[200px] rounded-xl"
                           whileHover={{ opacity: 0.5 }}
                         />
 
