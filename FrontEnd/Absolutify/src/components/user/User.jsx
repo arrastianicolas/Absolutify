@@ -1,9 +1,16 @@
+import { useState } from "react";
 import { useProfile } from "../../contexts/UserContext";
 import { useTraduction } from "../../custom/TraductionDictionary";
+import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 
 const User = () => {
   const { user } = useProfile();
   const { t } = useTraduction();
+  const [eye, setEye] = useState(false);
+
+  const handleShowEmail = () => {
+    setEye(!eye);
+  };
   return (
     <div className="flex justify-center w-full mx-auto 2xl:h-full xl:h-80 ">
       <div className="grid justify-center w-full mx-auto rounded-xl">
@@ -26,8 +33,15 @@ const User = () => {
 
         <div className="flex items-center justify-center mx-auto my-4">
           <div className="flex items-center justify-center p-4 mx-auto rounded-full bg-zinc-900">
-            <p className="2xl:text-lg text-slate-300 font-questrial">
-              {user?.email || "No disponible"}
+            <p className="flex items-center max-w-full 2xl:text-lg text-slate-300 font-questrial">
+              {eye ? user?.email : "*****************"}
+              <button onClick={handleShowEmail} className="p-1">
+                {eye ? (
+                  <IoMdEye />
+                ) : (
+                  <IoMdEyeOff className="relative bottom-1" />
+                )}
+              </button>
             </p>
           </div>
         </div>

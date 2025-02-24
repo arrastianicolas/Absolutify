@@ -55,7 +55,7 @@ const Playlists = () => {
         {t("playlists")}
       </h1>
       <div className="flex items-center justify-center w-full mx-auto">
-        <div className="grid  w-full 2xl:max-h-[600px] xl:max-h-[340px] max-h-[600px] md:grid-cols-4 gap-6 overflow-y-auto  p-9">
+        <div className="grid  w-full 2xl:max-h-[600px] xl:max-h-[340px] max-h-[700px] md:grid-cols-4 gap-6 overflow-y-auto p-9 ">
           {playlists.length === 0 ? (
             <p className="flex justify-center mx-auto text-4xl text-white font-questrial">
               No tienes playlists
@@ -64,7 +64,7 @@ const Playlists = () => {
             playlists.map((playlist) => (
               <div
                 key={playlist.id}
-                className="bg-stone-200 bg-opacity-20 rounded-lg 2xl:w-[350px] xl:w-[250px] xl:h-[78px] 2xl:h-[100px] flex justify-start items-center hover:scale-110 hover:cursor-pointer transition-all relative group"
+                className="bg-stone-200 bg-opacity-20 rounded-lg 2xl:w-[350px] xl:w-[250px] xl:h-[78px] 2xl:h-[100px] h-20 flex justify-start items-center hover:scale-110 hover:cursor-pointer transition-all relative group"
               >
                 <div className="2xl:w-[100px] xl:w-[80px] w-[90px] h-full ">
                   <img
@@ -74,7 +74,7 @@ const Playlists = () => {
                         : "/png/logo.png"
                     }
                     alt="Playlist Logo"
-                    className="object-cover h-full rounded-lg"
+                    className="object-cover w-full h-full rounded-lg"
                   />
                 </div>
 
@@ -84,7 +84,7 @@ const Playlists = () => {
                   </p>
                 </div>
 
-                <div className="absolute transition-opacity duration-300 transform -translate-y-1/2 opacity-0 right-4 top-1/2 group-hover:opacity-100">
+                <div className="absolute transition-opacity duration-300 transform -translate-y-1/2 opacity-0 right-4 md:top-1/2 top-3/4 group-hover:opacity-100">
                   <FaPlay className="text-slate-100" size={20} />
                 </div>
               </div>

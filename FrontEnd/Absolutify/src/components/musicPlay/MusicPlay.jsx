@@ -10,7 +10,7 @@ import FastForwardRounded from "@mui/icons-material/FastForwardRounded";
 import FastRewindRounded from "@mui/icons-material/FastRewindRounded";
 import VolumeUpRounded from "@mui/icons-material/VolumeUpRounded";
 import VolumeDownRounded from "@mui/icons-material/VolumeDownRounded";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { usePlayback } from "../../contexts/PlayTrackContext";
 import { useTraduction } from "../../custom/TraductionDictionary";
 
@@ -60,6 +60,14 @@ export default function MusicPlayerSlider() {
     usePlayback();
   const { t } = useTraduction();
 
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 600);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 600);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   useEffect(() => {
     if (currentTrackId) {
       playTrack(currentTrackId);
@@ -107,16 +115,41 @@ export default function MusicPlayerSlider() {
               />
             </CoverImage>
             <Box
-              sx={{ ml: 1.5, minWidth: 0, width: "250px", overflow: "hidden" }}
+              sx={{
+                ml: 1.5,
+                minWidth: 0,
+                width: "250px",
+                display: "inline-block",
+                overflow: "hidden",
+                whiteSpace: "nowrap",
+                maxWidth: isMobile ? "250px" : "100%",
+                position: "relative",
+              }}
             >
               <Typography
                 variant="caption"
-                sx={{ color: "text.secondary", fontWeight: 500 }}
+                sx={{
+                  color: "text.secondary",
+                  fontWeight: 400,
+                  display: "inline-block",
+                  animation: isMobile
+                    ? "scrollText 10s linear infinite"
+                    : "none",
+                }}
               >
                 {currentTrack?.artists
                   .map((artist) => artist.name)
                   .join(", ") || "Unknown Artist"}
+                <style>
+                  {`
+          @keyframes scrollText {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+          }
+        `}
+                </style>
               </Typography>
+
               <Typography noWrap>
                 <b>{currentTrack?.name || "Unknown name"}</b>
               </Typography>
