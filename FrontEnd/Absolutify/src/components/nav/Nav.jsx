@@ -2,11 +2,13 @@ import { useState, useEffect } from "react";
 import { IoIosSearch } from "react-icons/io";
 import { usePlayback } from "../../contexts/PlayTrackContext";
 import { useTraduction } from "../../custom/TraductionDictionary";
+import FilteredResult from "./FilteredResult";
 
 const Nav = () => {
   const [showFind, setShowFind] = useState(false);
   const [tracks, setTracks] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [filterType, setFilterType] = useState("track"); // Estado para el filtro
   const { setCurrentTrackId, setCurrentArtistId } = usePlayback();
   const { t } = useTraduction();
 
@@ -16,21 +18,21 @@ const Nav = () => {
   useEffect(() => {
     const handler = setTimeout(() => {
       setDebouncedSearchTerm(searchTerm);
-    }, 300); // Espera 300ms antes de actualizar
+    }, 300);
 
     return () => clearTimeout(handler);
   }, [searchTerm]);
 
   useEffect(() => {
     if (debouncedSearchTerm.length > 1) {
-      fetchTracks(debouncedSearchTerm);
+      fetchTracks(debouncedSearchTerm, filterType);
     } else {
       setTracks([]);
       setShowFind(false);
     }
-  }, [debouncedSearchTerm]);
+  }, [debouncedSearchTerm, filterType]);
 
-  const fetchTracks = async (query) => {
+  const fetchTracks = async (query, type) => {
     const token = localStorage.getItem("spotifyAccessToken");
     if (!token) {
       console.error("No hay token de acceso disponible");
@@ -39,7 +41,9 @@ const Nav = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:3308/spotify/search?q=${encodeURIComponent(query)}`,
+        `http://localhost:3308/spotify/search?q=${encodeURIComponent(
+          query
+        )}&type=${type}`,
         {
           method: "GET",
           headers: { Authorization: `Bearer ${token}` },
@@ -50,8 +54,12 @@ const Nav = () => {
       if (!response.ok) throw new Error("No se pudieron obtener las tracks");
 
       const data = await response.json();
-      setTracks(data);
-      setShowFind(data.length > 0);
+
+      const results = data[type]?.items || [];
+
+      setTracks(results);
+      console.log("Resultados obtenidos:", results);
+      setShowFind(results.length > 0);
     } catch (err) {
       console.error("Error al obtener las tracks", err);
       setTracks([]);
@@ -83,38 +91,12 @@ const Nav = () => {
         value={searchTerm}
       />
       {showFind && tracks.length > 0 && (
-        <div className="absolute top-full left-1/2 transform -translate-x-1/2 z-50 flex flex-col items-center w-full max-w-[500px] bg-neutral-800 rounded-lg shadow-lg">
-          <ul>
-            {tracks.map((track) => (
-              <div
-                className="flex items-center justify-between max-w-[500px] p-3"
-                key={track.id}
-              >
-                <div className="max-w-[60px] max-h-[79px]">
-                  <img
-                    src={track.album.images?.[0]?.url || "/png/logo.png"}
-                    alt="Playlist Logo"
-                    className="object-cover rounded-lg"
-                  />
-                </div>
-                <div className="flex justify-start flex-1 p-4 my-auto">
-                  <p className="text-left font-questrial text-slate-100">
-                    {track.name} -{" "}
-                    {track.artists.map((artist) => artist.name).join(", ")}
-                  </p>
-                </div>
-                <div>
-                  <button
-                    onClick={() => handlePlayTrack(track)}
-                    className="px-2 py-1 font-bold text-black transition-all bg-white border border-black rounded-full hover:bg-stone-500"
-                  >
-                    Play
-                  </button>
-                </div>
-              </div>
-            ))}
-          </ul>
-        </div>
+        <FilteredResult
+          tracks={tracks}
+          handlePlayTrack={handlePlayTrack}
+          setFilterType={setFilterType} // Pasamos la función para cambiar el filtro
+          currentFilter={filterType} // Pasamos el filtro actual
+        />
       )}
     </div>
   );

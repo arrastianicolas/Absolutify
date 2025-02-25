@@ -131,16 +131,18 @@ exports.getUserPlaylists = async (req, res) => {
 };
 
 exports.searchTracks = async (req, res) => {
-  const query = req.query.q; // Obtén el término de búsqueda desde los parámetros de la URL
+  const query = req.query.q; // Obtiene el término de búsqueda
+  const type = req.query.type; // Obtiene el tipo (track, album, playlist)
   const accessToken = req.cookies.spotifyAccessToken;
+  console.log("Type:", type);
   if (!accessToken) {
     return res.status(401).json({ error: "No estás autenticado." });
   }
 
-  if (!query) {
+  if (!query || !type) {
     return res
       .status(400)
-      .json({ error: "Debes proporcionar un término de búsqueda." });
+      .json({ error: "Debes proporcionar un término de búsqueda y un tipo." });
   }
 
   try {
@@ -150,14 +152,16 @@ exports.searchTracks = async (req, res) => {
       },
       params: {
         q: query,
-        type: "track",
+        type: type,
         limit: 5,
       },
     });
 
-    res.json(response.data.tracks.items);
+    res.json(response.data);
   } catch (error) {
-    res.status(500).json({ error: error.response.data });
+    res.status(500).json({
+      error: error.response?.data || "Error al obtener datos de Spotify",
+    });
   }
 };
 

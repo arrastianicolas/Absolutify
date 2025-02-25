@@ -228,7 +228,6 @@ const Dashboard = () => {
                       <motion.div
                         className="relative 2xl:w-[160px] 2xl:h-[160px] xl:w-[120px] xl:h-[120px] w-[160px] h-[160px] xl:bottom-10 overflow-x-hidden rounded-xl"
                         key={artist.id}
-                        whileHover={{ y: "-10%" }}
                         transition={{ duration: 5, ease: "easeInOut" }}
                       >
                         <motion.img

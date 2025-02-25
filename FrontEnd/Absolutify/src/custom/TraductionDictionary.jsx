@@ -29,6 +29,10 @@ export const TraductionDictionaryProvider = ({ children }) => {
       español: "Español",
       ingles: "Ingles",
       welcome: "¡Bienvenidos a Absolutify!",
+      loginP:
+        "Absolutify es un proyecto de práctica de Front-End que utiliza la API de Spotify para ofrecer una experiencia interactiva de música en línea. Explora playlists, artistas favoritos y canciones.",
+      avisoP:
+        "Este proyecto utiliza la API de Spotify, pero no está afiliado ni respaldado por Spotify. Todos los derechos sobre la música y los datos pertenecen a Spotify y sus respectivos propietarios.",
     },
     en: {
       configuracion: "Configuration",
@@ -47,6 +51,10 @@ export const TraductionDictionaryProvider = ({ children }) => {
       español: "Spanish",
       ingles: "English",
       welcome: "Welcome to Absolutify!",
+      loginP:
+        "Absolutify is a Front-End practice project that uses the Spotify API to deliver an interactive online music experience. Explore playlists, favorite artists and the Top 50 in Argentina with previews and details for each track, album and artist.",
+      avisoP:
+        "This project uses the Spotify API but is not affiliated with or endorsed by Spotify. All rights to music and data belong to Spotify and their respective owners.",
     },
   };
 

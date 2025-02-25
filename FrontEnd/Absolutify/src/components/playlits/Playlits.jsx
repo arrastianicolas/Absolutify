@@ -54,8 +54,8 @@ const Playlists = () => {
       <h1 className="w-full text-3xl text-left text-white 2xl:text-4xl font-questrial">
         {t("playlists")}
       </h1>
-      <div className="flex items-center justify-center w-full mx-auto">
-        <div className="grid  w-full 2xl:max-h-[600px] xl:max-h-[340px] max-h-[700px] md:grid-cols-4 gap-6 overflow-y-auto p-9 ">
+      <div className="flex items-center justify-center w-full mx-auto h-[50vh] md:h-auto">
+        <div className="grid  relative    w-full max-h-full md:max-h-[600px] xl:max-h-[340px] 2xl:max-h-[600px] md:grid-cols-4 md:gap-6 gap-3 overflow-y-auto md:p-9 p-5">
           {playlists.length === 0 ? (
             <p className="flex justify-center mx-auto text-4xl text-white font-questrial">
               No tienes playlists
