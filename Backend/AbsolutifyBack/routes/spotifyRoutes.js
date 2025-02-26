@@ -9,4 +9,5 @@ router.get("/playlists", spotifyController.getUserPlaylists); // Obtener playlis
 router.get("/search", spotifyController.searchTracks); // Buscar tracks
 router.get("/me", spotifyController.meUsers);
 router.post("/refresh", spotifyController.refresh);
+router.put("/follow-playlist", spotifyController.followPlaylist);
 module.exports = router;

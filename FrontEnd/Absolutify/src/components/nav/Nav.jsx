@@ -34,6 +34,7 @@ const Nav = () => {
 
   const fetchTracks = async (query, type) => {
     const token = localStorage.getItem("spotifyAccessToken");
+
     if (!token) {
       console.error("No hay token de acceso disponible");
       return;
@@ -52,10 +53,10 @@ const Nav = () => {
       );
 
       if (!response.ok) throw new Error("No se pudieron obtener las tracks");
-
+      const spotifyType = type + "s"; // "track" -> "tracks"
       const data = await response.json();
 
-      const results = data[type]?.items || [];
+      const results = data[spotifyType]?.items || [];
 
       setTracks(results);
       console.log("Resultados obtenidos:", results);

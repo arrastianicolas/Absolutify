@@ -10,7 +10,8 @@ const redirectUri = process.env.SPOTIFY_REDIRECT_URI;
 
 exports.login = (req, res) => {
   const scopes =
-    "user-read-private user-read-email playlist-read-private user-top-read";
+    "user-read-private user-read-email playlist-read-private user-top-read playlist-modify-public playlist-modify-private";
+
   const authUrl = `https://accounts.spotify.com/authorize?${qs.stringify({
     response_type: "code",
     client_id: clientId,
@@ -134,7 +135,7 @@ exports.searchTracks = async (req, res) => {
   const query = req.query.q; // Obtiene el término de búsqueda
   const type = req.query.type; // Obtiene el tipo (track, album, playlist)
   const accessToken = req.cookies.spotifyAccessToken;
-  console.log("Type:", type);
+
   if (!accessToken) {
     return res.status(401).json({ error: "No estás autenticado." });
   }
@@ -162,6 +163,36 @@ exports.searchTracks = async (req, res) => {
     res.status(500).json({
       error: error.response?.data || "Error al obtener datos de Spotify",
     });
+  }
+};
+exports.followPlaylist = async (req, res) => {
+  const { playlist_id } = req.body; // Asegurar que se reciba correctamente
+  const accessToken = req.cookies.spotifyAccessToken; // Extraer el token
+
+  if (!accessToken) {
+    return res.status(401).json({ error: "No estás autenticado." });
+  }
+
+  try {
+    await axios.put(
+      `https://api.spotify.com/v1/playlists/${playlist_id}/followers`,
+      {}, // Se envía un objeto vacío porque Spotify no necesita datos en el body
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+
+    res.status(200).json({ message: "Playlist seguida con éxito" });
+  } catch (error) {
+    console.error(
+      "Error al seguir la playlist",
+      error.response?.data || error.message
+    );
+    res
+      .status(500)
+      .json({ error: error.response?.data || "Error interno del servidor" });
   }
 };
 
