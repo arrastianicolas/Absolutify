@@ -46,14 +46,14 @@ exports.callback = async (req, res) => {
 
     res.cookie("spotifyAccessToken", access_token, {
       httpOnly: false,
-      secure: true, // Cambiar a true en producción
-      sameSite: "Strict",
+      secure: false, // Cambiar a true en producción
+      sameSite: "None",
       maxAge: 3600 * 1000, // 1 hora
     });
     res.cookie("spotifyRefreshToken", refresh_token, {
       httpOnly: false,
-      secure: true, // Cambiar a true en producción
-      sameSite: "Strict",
+      secure: false, // Cambiar a true en producción
+      sameSite: "None",
       maxAge: 30 * 24 * 60 * 60 * 1000, // 30 días
     });
 
@@ -92,8 +92,8 @@ exports.refresh = async (req, res) => {
     // Guardar el nuevo access token en cookies
     res.cookie("spotifyAccessToken", newAccessToken, {
       httpOnly: false,
-      secure: true,
-      sameSite: "Strict",
+      secure: false,
+      sameSite: "None",
       maxAge: 3600 * 1000, // 1 hora
     });
 
