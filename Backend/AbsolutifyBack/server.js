@@ -28,13 +28,13 @@ app.post("/logout", (req, res) => {
     path: "/",
     httpOnly: false,
     secure: false,
-    sameSite: "None",
+    sameSite: "Strict",
   });
   res.clearCookie("spotifyRefreshToken", {
     path: "/",
     httpOnly: false,
     secure: false,
-    sameSite: "None",
+    sameSite: "Strict",
   });
 
   res.status(200).json({ message: "Logout exitoso" });
