@@ -28,13 +28,13 @@ app.post("/logout", (req, res) => {
     path: "/",
     httpOnly: false,
     secure: false,
-    sameSite: "None",
+    sameSite: "Strict",
   });
   res.clearCookie("spotifyRefreshToken", {
     path: "/",
     httpOnly: false,
     secure: false,
-    sameSite: "None",
+    sameSite: "Strict",
   });
 
   res.status(200).json({ message: "Logout exitoso" });
@@ -63,5 +63,5 @@ app.get("/me", spotifyController.meUsers);
 // Puerto del servidor
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`Servidor corriendo en http://localhost:${PORT}`);
+  console.log(`Servidor corriendo ${PORT}`);
 });
