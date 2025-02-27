@@ -59,7 +59,7 @@ const Nav = () => {
       const results = data[spotifyType]?.items || [];
 
       setTracks(results);
-      console.log("Resultados obtenidos:", results);
+
       setShowFind(results.length > 0);
     } catch (err) {
       console.error("Error al obtener las tracks", err);

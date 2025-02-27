@@ -18,10 +18,10 @@ const Login = () => {
   };
 
   return (
-    <div className="relative flex items-center justify-center h-screen">
+    <div className="relative flex items-center justify-center h-screen overflow-hidden">
       {/* Fondo */}
       <img
-        src="/png/logo.png"
+        src="/png/logoAbso.jpg"
         className="absolute inset-0 object-cover w-full h-full"
         alt="Fondo Abso"
       />

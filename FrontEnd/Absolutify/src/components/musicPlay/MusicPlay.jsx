@@ -110,7 +110,7 @@ export default function MusicPlayerSlider() {
                   currentTrack.album?.images &&
                   currentTrack.album?.images[0]
                     ? currentTrack.album?.images[0].url
-                    : "/png/logo.png"
+                    : "/png/logoAbso.jpg"
                 }
               />
             </CoverImage>

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { useProfile } from "../../contexts/UserContext";
 import Spinner from "../spinner/Spinner";
+import { ToastContainer } from "react-toastify";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -102,6 +103,7 @@ const Home = () => {
   return (
     <div className="h-screen bg-neutral-900 ">
       <SidebarDemo logout={logout} />
+      <ToastContainer />
     </div>
   );
 };

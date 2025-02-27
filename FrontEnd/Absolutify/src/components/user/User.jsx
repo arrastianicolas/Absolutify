@@ -19,7 +19,7 @@ const User = () => {
         </h2>
         <div className="2xl:w-[200px] 2xl:h-[200px]   w-[140px] h-[140px]  md:rounded-xl mx-auto md:my-4">
           <img
-            src={user?.images?.[0]?.url || "/png/logo.png"}
+            src={user?.images?.[0]?.url || "/png/logoAbso.jpg"}
             alt="Imagen de perfil"
             className="object-fill w-full h-full rounded-full"
           />

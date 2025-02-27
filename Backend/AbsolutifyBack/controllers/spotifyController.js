@@ -166,8 +166,8 @@ exports.searchTracks = async (req, res) => {
   }
 };
 exports.followPlaylist = async (req, res) => {
-  const { playlist_id } = req.body; // Asegurar que se reciba correctamente
-  const accessToken = req.cookies.spotifyAccessToken; // Extraer el token
+  const { playlist_id } = req.body;
+  const accessToken = req.cookies.spotifyAccessToken;
 
   if (!accessToken) {
     return res.status(401).json({ error: "No estás autenticado." });
@@ -176,7 +176,7 @@ exports.followPlaylist = async (req, res) => {
   try {
     await axios.put(
       `https://api.spotify.com/v1/playlists/${playlist_id}/followers`,
-      {}, // Se envía un objeto vacío porque Spotify no necesita datos en el body
+      {},
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,

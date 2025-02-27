@@ -1,4 +1,5 @@
 import { useCookies } from "react-cookie";
+import { toast } from "react-toastify";
 
 const FilteredResult = ({
   tracks,
@@ -23,17 +24,17 @@ const FilteredResult = ({
           method: "PUT",
           credentials: "include",
           headers: {
-            "Content-Type": "application/json", // Agregar para que el backend pueda leer el JSON
+            "Content-Type": "application/json",
           },
-          body: JSON.stringify({ playlist_id: playlist.id }), // Cambiar `playlistId` a `playlist_id`
+          body: JSON.stringify({ playlist_id: playlist.id }),
         }
       );
 
       if (!response.ok) {
-        throw new Error("No se pudo guardar la playlist");
+        toast.error("Error al guardar la Playlist");
       }
 
-      alert("¡Playlist guardada con éxito!");
+      toast.success(`Playlist ${playlist.name} Guardada Correctamente`);
     } catch (error) {
       console.error("Error al guardar la playlist:", error);
       alert("Hubo un problema al guardar la playlist.");
@@ -62,10 +63,8 @@ const FilteredResult = ({
         ))}
       </div>
 
-      {/* Lista de resultados (Filtra valores null o undefined) */}
       <ul className="w-full">
         {tracks.filter(Boolean).map((item) => {
-          // Si el item no tiene datos esenciales, lo ignoramos
           if (!item.id || !item.name) return null;
 
           return (
@@ -73,7 +72,6 @@ const FilteredResult = ({
               key={item.id}
               className="flex items-center justify-between w-full p-3 border-b rounded-md border-neutral-600"
             >
-              {/* 🎵 Si es una Canción (track) */}
               {currentFilter === "track" && item.album && (
                 <>
                   <div className="max-w-[60px] max-h-[79px]">
@@ -101,7 +99,6 @@ const FilteredResult = ({
                 </>
               )}
 
-              {/* 💿 Si es un Álbum */}
               {currentFilter === "album" && item.images && (
                 <>
                   <div className="w-16 h-16">
@@ -122,7 +119,6 @@ const FilteredResult = ({
                 </>
               )}
 
-              {/* 📋 Si es una Playlist */}
               {currentFilter === "playlist" && item.images && (
                 <>
                   <div className="w-16 h-16">
