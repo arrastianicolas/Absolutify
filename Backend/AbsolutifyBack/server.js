@@ -26,13 +26,13 @@ app.get("/", (req, res) => {
 app.post("/logout", (req, res) => {
   res.clearCookie("spotifyAccessToken", {
     path: "/",
-    httpOnly: true,
+    httpOnly: false,
     secure: false,
     sameSite: "None",
   });
   res.clearCookie("spotifyRefreshToken", {
     path: "/",
-    httpOnly: true,
+    httpOnly: false,
     secure: false,
     sameSite: "None",
   });
