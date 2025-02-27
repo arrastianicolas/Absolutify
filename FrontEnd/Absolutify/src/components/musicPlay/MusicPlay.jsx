@@ -98,7 +98,7 @@ export default function MusicPlayerSlider() {
   };
 
   return (
-    <Box className="fixed bottom-0 w-full max-w-md transform -translate-x-1/2 md:max-w-full md:relative md:left-0 md:translate-x-0 left-1/2">
+    <Box className="sticky bottom-0 w-full max-w-md transform md:max-w-full md:relative md:left-0 md:translate-x-0 left-1/2">
       <Widget>
         <div className="flex-row items-center justify-between w-full mx-auto md:flex">
           <Box sx={{ display: "flex", alignItems: "center" }}>
@@ -133,7 +133,7 @@ export default function MusicPlayerSlider() {
                   fontWeight: 400,
                   display: "inline-block",
                   animation: isMobile
-                    ? "scrollText 10s linear infinite"
+                    ? "scrollText 12s linear infinite"
                     : "none",
                 }}
               >

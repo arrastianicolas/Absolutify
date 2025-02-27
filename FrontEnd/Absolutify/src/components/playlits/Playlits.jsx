@@ -19,7 +19,7 @@ const Playlists = () => {
 
       try {
         const response = await fetch(
-          "http://localhost:3308/spotify/playlists",
+          "https://absolutify.onrender.com/spotify/playlists",
           {
             method: "GET",
             headers: {

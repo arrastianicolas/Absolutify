@@ -14,13 +14,16 @@ export const UserProvider = ({ children }) => {
     }
 
     try {
-      const response = await fetch("http://localhost:3308/spotify/me", {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        credentials: "include",
-      });
+      const response = await fetch(
+        "https://absolutify.onrender.com/spotify/me",
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          credentials: "include",
+        }
+      );
 
       if (!response.ok) {
         throw new Error("No se pudo obtener el perfil");

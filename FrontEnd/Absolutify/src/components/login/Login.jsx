@@ -14,7 +14,7 @@ const Login = () => {
 
   const fetchLoginSpotify = () => {
     window.location.href =
-      "http://localhost:3308/spotify/login?show_dialog=true";
+      "https://absolutify.onrender.com/spotify/login?show_dialog=true";
   };
 
   return (

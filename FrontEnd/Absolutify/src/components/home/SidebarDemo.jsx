@@ -207,7 +207,7 @@ const Dashboard = () => {
 
         {location.pathname === "/home" && (
           <>
-            <div className="grid items-center justify-center md:h-auto max-h-[550px] md:my-20 overflow-y-scroll grid-cols-1 gap-2">
+            <div className="grid items-center justify-center md:max-h-[800px] max-h-[550px] 2xl:my-20 xl:my-10 md:overflow-hidden overflow-y-scroll grid-cols-1 gap-2">
               <div className="grid justify-center gap-10 mx-auto md:gap-10 md:flex ">
                 <div className="relative flex flex-col items-center justify-center gap-4 md:gap-11 top-4 md:top-0">
                   <h2 className="text-2xl 2xl:text-3xl text-slate-300 font-questrial">

@@ -42,7 +42,7 @@ const Nav = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:3308/spotify/search?q=${encodeURIComponent(
+        `https://absolutify.onrender.com/spotify/search?q=${encodeURIComponent(
           query
         )}&type=${type}`,
         {
