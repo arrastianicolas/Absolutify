@@ -10,27 +10,26 @@ const Home = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [cookies] = useCookies(["spotifyAccessToken"]);
+
   const { fetchPerfil } = useProfile();
-  const token = cookies.spotifyAccessToken;
 
   useEffect(() => {
+    const token = cookies.spotifyAccessToken;
+
     if (token) {
+      localStorage.setItem("spotifyAccessToken", token);
       localStorage.setItem("isLoggedIn", "true");
       checkTokenValidity(token);
     } else {
       console.error("No se encontró el token de acceso");
       logout(); // Cerrar sesión si no hay token
     }
-  }, [token]); // Se actualiza solo cuando cambia el token
+  }, [cookies, navigate]);
 
   useEffect(() => {
     setLoading(true);
-    if (token) {
-      fetchPerfil().finally(() => setLoading(false));
-    } else {
-      setLoading(false);
-    }
-  }, [token]);
+    fetchPerfil().finally(() => setLoading(false));
+  }, []);
 
   const logout = async () => {
     try {
@@ -40,8 +39,14 @@ const Home = () => {
       });
 
       if (response.ok) {
-        // Eliminar solo el estado en localStorage
+        // Eliminar tokens y cookies en el frontend
+        localStorage.removeItem("spotifyAccessToken");
         localStorage.removeItem("isLoggedIn");
+
+        document.cookie =
+          "spotifyAccessToken=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+        document.cookie =
+          "spotifyRefreshToken=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC";
 
         navigate("/");
       } else {
@@ -56,11 +61,11 @@ const Home = () => {
     try {
       const response = await fetch("https://api.spotify.com/v1/me", {
         headers: { Authorization: `Bearer ${token}` },
-        credentials: "include",
       });
 
       if (response.status === 401) {
         console.warn("Token expirado, intentando refrescar...");
+
         const refreshed = await refreshToken();
         if (!refreshed) {
           logout();
@@ -72,6 +77,7 @@ const Home = () => {
     }
   };
 
+  // Función para refrescar el token
   const refreshToken = async () => {
     try {
       const response = await fetch(
@@ -85,6 +91,9 @@ const Home = () => {
 
       if (!response.ok) throw new Error("Error al refrescar el token");
 
+      const data = await response.json();
+      document.cookie = `spotifyAccessToken=${data.access_token}; path=/; max-age=3600`;
+      localStorage.setItem("spotifyAccessToken", data.access_token);
       return true;
     } catch (error) {
       console.error("No se pudo refrescar el token:", error);

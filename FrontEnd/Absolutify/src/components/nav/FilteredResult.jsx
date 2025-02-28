@@ -19,7 +19,7 @@ const FilteredResult = ({
 
     try {
       const response = await fetch(
-        "https://absolutify.onrender.com/spotify/follow-playlist",
+        "http://localhost:3308/spotify/follow-playlist",
         {
           method: "PUT",
           credentials: "include",
