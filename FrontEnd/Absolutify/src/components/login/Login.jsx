@@ -16,10 +16,6 @@ const Login = () => {
     window.location.href =
       "https://absolutify.onrender.com/spotify/login?show_dialog=true";
   };
-  fetch(`https://absolutify.onrender.com/test`)
-    .then((response) => response.json())
-    .then((data) => console.log(data))
-    .catch((error) => console.error("Error:", error));
 
   return (
     <div className="relative flex items-center justify-center h-screen overflow-hidden">
