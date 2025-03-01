@@ -13,7 +13,7 @@ const app = express();
 // Middlewares
 app.use(
   cors({
-    origin: "https://absolutify-nicolas-arrastias-projects.vercel.app", // ✅ Sin barra al final
+    origin: "https://absolutify.vercel.app",
     credentials: true,
   })
 );
