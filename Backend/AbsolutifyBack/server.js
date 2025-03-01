@@ -20,7 +20,7 @@ app.use(
 app.use(bodyParser.json());
 app.use(cookieParser());
 // Rutas básicas
-app.get("/", (req, res) => {
+app.get("/test", (req, res) => {
   res.send("¡El servidor está corriendo!");
 });
 app.post("/logout", (req, res) => {
