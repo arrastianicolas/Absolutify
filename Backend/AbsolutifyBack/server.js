@@ -13,8 +13,8 @@ const app = express();
 // Middlewares
 app.use(
   cors({
-    origin: "https://absolutify-nicolas-arrastias-projects.vercel.app/",
-    credentials: true, // Permite el envío de cookies
+    origin: "https://absolutify-nicolas-arrastias-projects.vercel.app", // ✅ Sin barra al final
+    credentials: true,
   })
 );
 app.use(bodyParser.json());
