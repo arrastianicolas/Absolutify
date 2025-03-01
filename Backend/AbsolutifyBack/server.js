@@ -13,7 +13,7 @@ const app = express();
 // Middlewares
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "https://absolutify.vercel.app/",
     credentials: true, // Permite el envío de cookies
   })
 );
@@ -26,14 +26,14 @@ app.get("/", (req, res) => {
 app.post("/logout", (req, res) => {
   res.clearCookie("spotifyAccessToken", {
     path: "/",
-    httpOnly: false,
-    secure: false,
+    httpOnly: true,
+    secure: true,
     sameSite: "None",
   });
   res.clearCookie("spotifyRefreshToken", {
     path: "/",
-    httpOnly: false,
-    secure: false,
+    httpOnly: true,
+    secure: true,
     sameSite: "None",
   });
   console.log("lgout exitoso");
