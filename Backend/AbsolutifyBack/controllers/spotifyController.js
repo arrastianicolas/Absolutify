@@ -57,7 +57,9 @@ exports.callback = async (req, res) => {
       maxAge: 30 * 24 * 60 * 60 * 1000, // 30 días
     });
 
-    res.redirect("https://absolutify.vercel.app/home");
+    res.redirect(
+      "https://absolutify-nicolas-arrastias-projects.vercel.app/home"
+    );
   } catch (error) {
     res.status(500).json({ error: error.response });
   }
