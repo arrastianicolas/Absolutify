@@ -47,7 +47,7 @@ exports.callback = async (req, res) => {
     res.cookie("spotifyAccessToken", access_token, {
       httpOnly: false,
       secure: true,
-      sameSite: "Strict",
+      sameSite: "None",
       domain: ".vercel.app",
       maxAge: 3600 * 1000,
     });
@@ -55,7 +55,7 @@ exports.callback = async (req, res) => {
     res.cookie("spotifyRefreshToken", refresh_token, {
       httpOnly: false,
       secure: true,
-      sameSite: "Strict",
+      sameSite: "None",
       domain: ".vercel.app",
       maxAge: 30 * 24 * 60 * 60 * 1000,
     });
@@ -96,7 +96,7 @@ exports.refresh = async (req, res) => {
     res.cookie("spotifyAccessToken", newAccessToken, {
       httpOnly: false,
       secure: true,
-      sameSite: "Strict",
+      sameSite: "None",
       maxAge: 3600 * 1000, // 1 hora
     });
 
