@@ -96,7 +96,7 @@ exports.refresh = async (req, res) => {
     res.cookie("spotifyAccessToken", newAccessToken, {
       httpOnly: false,
       secure: true,
-      sameSite: "Strict",
+      sameSite: "None",
       maxAge: 3600 * 1000, // 1 hora
     });
 

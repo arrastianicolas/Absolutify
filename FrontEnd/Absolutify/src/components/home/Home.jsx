@@ -92,6 +92,8 @@ const Home = () => {
       if (!response.ok) throw new Error("Error al refrescar el token");
 
       const data = await response.json();
+      console.log("Nuevo token recibido:", data.access_token);
+
       document.cookie = `spotifyAccessToken=${data.access_token}; path=/; max-age=3600`;
       localStorage.setItem("spotifyAccessToken", data.access_token);
       return true;
