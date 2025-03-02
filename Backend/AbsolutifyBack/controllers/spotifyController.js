@@ -21,7 +21,7 @@ exports.login = (req, res) => {
   res.redirect(authUrl);
 };
 
-exports.callback = async (req, res) => {
+exports.absolutify = async (req, res) => {
   const code = req.query.code;
 
   try {
