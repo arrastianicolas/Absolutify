@@ -10,7 +10,7 @@ import FastForwardRounded from "@mui/icons-material/FastForwardRounded";
 import FastRewindRounded from "@mui/icons-material/FastRewindRounded";
 import VolumeUpRounded from "@mui/icons-material/VolumeUpRounded";
 import VolumeDownRounded from "@mui/icons-material/VolumeDownRounded";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { usePlayback } from "../../contexts/PlayTrackContext";
 import { useTraduction } from "../../custom/TraductionDictionary";
 
@@ -86,17 +86,22 @@ export default function MusicPlayerSlider() {
     }
   }, []);
 
-  const handleSliderChange = (_, value) => {
-    const durationInSeconds = currentTrack?.duration_ms / 1000;
-    setPosition(Math.min(value, durationInSeconds));
-  };
-  const formatDuration = (time) => {
+  const handleSliderChange = useCallback(
+    (_, value) => {
+      const durationInSeconds = currentTrack?.duration_ms / 1000;
+      setPosition(Math.min(value, durationInSeconds));
+    },
+    [currentTrack]
+  );
+  const formatDuration = useCallback((time) => {
     if (isNaN(time) || time === undefined) return "00:00";
     const minutes = Math.floor(time / 60);
     const seconds = Math.floor(time % 60);
     return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
-  };
-
+  }, []);
+  const togglePlayPause = useCallback(() => {
+    setPaused((prev) => !prev);
+  }, []);
   return (
     <Box className="sticky bottom-0 w-full max-w-md transform md:max-w-full md:relative md:left-0 md:translate-x-0 left-1/2">
       <Widget>
@@ -110,7 +115,7 @@ export default function MusicPlayerSlider() {
                   currentTrack.album?.images &&
                   currentTrack.album?.images[0]
                     ? currentTrack.album?.images[0].url
-                    : "/png/logoAbso.jpg"
+                    : "/png/logoAbso.webp"
                 }
               />
             </CoverImage>
@@ -261,7 +266,7 @@ export default function MusicPlayerSlider() {
           </IconButton>
           <IconButton
             aria-label={paused ? "play" : "pause"}
-            onClick={() => setPaused(!paused)}
+            onClick={togglePlayPause}
           >
             {paused ? (
               <PlayArrowRounded sx={{ fontSize: "3rem" }} />

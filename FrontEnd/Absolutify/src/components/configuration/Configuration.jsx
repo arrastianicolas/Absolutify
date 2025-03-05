@@ -28,7 +28,7 @@ const Configuration = () => {
         </h2>
       </div>
       <div className="flex justify-center mx-auto md:max-w-[500px] max-w-[300px] ">
-        <div className="grid items-center justify-center my-5 grid-cols-1  mx-auto 2xl:h-[200px] xl:h-[150px] bg-stone-700 bg-opacity-15 shadow-md shadow-black rounded-xl">
+        <div className="grid items-center justify-center my-5 grid-cols-1  mx-auto 2xl:h-[200px] xl:h-[150px] backdrop-blur-[11px] backdrop-saturate-[129%]  bg-opacity-0 border border-opacity-20 border-[#ffffff] shadow-md shadow-black rounded-xl">
           <div className="flex items-center justify-between md:w-[500px] w-[300px] p-3">
             <div className="max-w-[60px] max-h-[79px] ">
               <h3 className="font-semibold 2xl:text-xl xl:text-lg text-slate-200 font-questrial">

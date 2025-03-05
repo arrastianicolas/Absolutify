@@ -22,7 +22,7 @@ export function SidebarDemo({ logout }) {
   const links = [
     {
       label: t("playlists"),
-      to: "/home/playlits",
+      to: "/home/playlists",
       icon: (
         <RiPlayListFill className="flex-shrink-0 w-5 h-5 text-neutral-700 dark:text-neutral-200" />
       ),
@@ -111,7 +111,7 @@ export const Logo = () => {
     >
       <img
         className="flex-shrink-0 bg-black rounded-tl-lg rounded-tr-sm rounded-bl-sm rounded-br-lg h-7 w-7 dark:bg-stone-300"
-        src="/png/logoAbso.jpg"
+        src="/png/logoAbso.webp"
       />
       <motion.span
         initial={{ opacity: 0 }}
@@ -126,7 +126,7 @@ export const Logo = () => {
 export const LogoIcon = () => {
   return (
     <Link
-      href="#"
+      to="#"
       className="relative z-20 flex items-center py-1 space-x-2 text-sm font-normal text-black"
     >
       <div className="flex-shrink-0 w-6 h-5 bg-black rounded-tl-lg rounded-tr-sm rounded-bl-sm rounded-br-lg dark:bg-white" />
@@ -187,8 +187,8 @@ const Dashboard = () => {
         if (!response.ok) throw new Error("Error al obtener recomendaciones");
 
         const data = await response.json();
-
-        setTracksTop(data.items);
+        const tracks = data.items.filter((item) => item.type === "track");
+        setTracksTop(tracks);
       } catch (err) {
         console.error(err);
       }
@@ -198,91 +198,81 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <div className="flex flex-1 ">
-      <div className="flex flex-col flex-1 w-full h-full gap-2 p-1 mx-auto border border-neutral-900 rounded-tl-2xl bg-neutral-900">
-        <Nav />
-        <div className="flex gap-1">
-          <Outlet />
-        </div>
+    <div className="flex flex-col flex-1 w-full h-full gap-2 p-1 mx-auto border border-neutral-900 rounded-tl-2xl bg-neutral-900">
+      <Nav />
+      <div className="flex gap-1">
+        <Outlet />
+      </div>
 
-        {location.pathname === "/home" && (
-          <>
-            <div className="grid items-center justify-center md:max-h-[800px] max-h-[550px] 2xl:my-20 xl:my-10 md:overflow-hidden overflow-y-scroll grid-cols-1 gap-2">
-              <div className="grid justify-center gap-10 mx-auto md:gap-10 md:flex ">
-                <div className="relative flex flex-col items-center justify-center gap-4 md:gap-11 top-4 md:top-0">
-                  <h2 className="text-2xl 2xl:text-3xl text-slate-300 font-questrial">
-                    {t("artists")}
-                  </h2>
-                  <div className="grid w-full h-auto grid-cols-2 gap-5 mx-auto 2xl:gap-10 xl:gap-7 rounded-xl">
-                    {artistsTop.map((artist) => (
+      {location.pathname === "/home" && (
+        <>
+          <div className="grid bg-neutral-800 border border-stone-500 mx-auto p-3 rounded-xl  items-center justify-center md:max-h-[800px] max-h-[550px] 2xl:my-20 xl:my-10 md:overflow-hidden overflow-y-scroll grid-cols-1 gap-2">
+            <div className="grid justify-center gap-10 mx-auto md:gap-20 md:flex ">
+              <div className="relative flex flex-col items-center justify-center gap-4 md:gap-11 top-4 md:top-0">
+                <h2 className="text-2xl 2xl:text-3xl text-slate-300 font-questrial">
+                  {t("artists")}
+                </h2>
+                <div className="grid w-full h-auto grid-cols-2 gap-5 mx-auto 2xl:gap-10 xl:gap-7 rounded-xl">
+                  {artistsTop.map((artist) => (
+                    <motion.div
+                      className="relative 2xl:w-[160px] 2xl:h-[160px] xl:w-[120px] xl:h-[120px] w-[160px] h-[160px] xl:bottom-7 overflow-x-hidden rounded-xl"
+                      key={artist.id}
+                      transition={{ duration: 5, ease: "easeInOut" }}
+                    >
+                      <motion.img
+                        src={artist.images[0].url}
+                        alt={artist.name}
+                        className="object-cover w-full h-full max-h-[200px] rounded-xl"
+                        whileHover={{ opacity: 0.5 }}
+                      />
+
                       <motion.div
-                        className="relative 2xl:w-[160px] 2xl:h-[160px] xl:w-[120px] xl:h-[120px] w-[160px] h-[160px] xl:bottom-7 overflow-x-hidden rounded-xl"
-                        key={artist.id}
-                        transition={{ duration: 5, ease: "easeInOut" }}
+                        className="absolute inset-0 flex items-center justify-center text-lg bg-black bg-opacity-50 opacity-0 text-slate-300"
+                        whileHover={{ opacity: 1 }}
+                        transition={{ duration: 0.5 }}
                       >
-                        <motion.img
-                          src={artist.images[0].url}
-                          alt={artist.name}
-                          className="object-cover w-full h-full max-h-[200px] rounded-xl"
-                          whileHover={{ opacity: 0.5 }}
-                        />
-
-                        <motion.div
-                          className="absolute inset-0 flex items-center justify-center text-lg bg-black bg-opacity-50 opacity-0 text-slate-300"
-                          whileHover={{ opacity: 1 }}
-                          transition={{ duration: 0.5 }}
-                        >
-                          {artist.name}
-                        </motion.div>
+                        {artist.name}
                       </motion.div>
-                    ))}
-                  </div>
+                    </motion.div>
+                  ))}
                 </div>
-                <div className="flex flex-col items-center justify-center gap-4">
-                  <iframe
-                    className="flex mx-auto rounded-2xl 2xl:w-[900px] xl:w-[500px] 2xl:h-[360px] xl:h-[300px] h-[450px] md:mt-8"
-                    src="https://open.spotify.com/embed/playlist/37i9dQZEVXbMMy2roB9myp?utm_source=generator&theme=0"
-                    width="100%"
-                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                    loading="lazy"
-                  ></iframe>
-                </div>
-                <div className="relative flex flex-col items-center justify-center gap-4 md:gap-11 md:top-0">
-                  <h2 className="text-2xl 2xl:text-3xl text-slate-300 font-questrial">
-                    {t("tracks")}
-                  </h2>
-                  <div className="grid w-full h-auto grid-cols-2 gap-5 mx-auto 2xl:gap-10 xl:gap-7 rounded-xl">
-                    {tracksTop.map((track) => (
+              </div>
+
+              <div className="relative flex flex-col items-center justify-center gap-4 md:gap-11 md:top-0">
+                <h2 className="text-2xl 2xl:text-3xl text-slate-300 font-questrial">
+                  {t("tracks")}
+                </h2>
+                <div className="grid w-full h-auto grid-cols-2 gap-5 mx-auto 2xl:gap-10 xl:gap-7 rounded-xl">
+                  {tracksTop.map((track) => (
+                    <motion.div
+                      className="relative 2xl:w-[160px] 2xl:h-[160px] xl:w-[120px] xl:h-[120px] w-[160px] h-[160px] xl:bottom-7 overflow-x-hidden rounded-xl"
+                      key={track.album.id}
+                      transition={{ duration: 5, ease: "easeInOut" }}
+                    >
+                      <motion.img
+                        src={track.album.images[0].url}
+                        alt={track.album.name}
+                        className="object-cover w-full h-full max-h-[200px] rounded-xl"
+                        whileHover={{ opacity: 0.5 }}
+                      />
+
                       <motion.div
-                        className="relative 2xl:w-[160px] 2xl:h-[160px] xl:w-[120px] xl:h-[120px] w-[160px] h-[160px] xl:bottom-7 overflow-x-hidden rounded-xl"
-                        key={track.album.id}
-                        transition={{ duration: 5, ease: "easeInOut" }}
+                        className="absolute inset-0 flex items-center justify-center text-lg bg-black bg-opacity-50 opacity-0 text-slate-300"
+                        whileHover={{ opacity: 1 }}
+                        transition={{ duration: 0.5 }}
                       >
-                        <motion.img
-                          src={track.album.images[0].url}
-                          alt={track.album.name}
-                          className="object-cover w-full h-full max-h-[200px] rounded-xl"
-                          whileHover={{ opacity: 0.5 }}
-                        />
-
-                        <motion.div
-                          className="absolute inset-0 flex items-center justify-center text-lg bg-black bg-opacity-50 opacity-0 text-slate-300"
-                          whileHover={{ opacity: 1 }}
-                          transition={{ duration: 0.5 }}
-                        >
-                          {track.album.name}
-                        </motion.div>
+                        {track.album.name}
                       </motion.div>
-                    ))}
-                  </div>
+                    </motion.div>
+                  ))}
                 </div>
               </div>
             </div>
-          </>
-        )}
-        <div className="flex flex-1 gap-2"></div>
-        <MusicPlayerSlider />
-      </div>
+          </div>
+        </>
+      )}
+      <div className="flex flex-1 gap-2"></div>
+      <MusicPlayerSlider />
     </div>
   );
 };

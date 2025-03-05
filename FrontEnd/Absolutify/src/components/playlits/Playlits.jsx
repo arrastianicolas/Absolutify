@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { FaPlay } from "react-icons/fa"; // Asegúrate de tener react-icons instalado
+import { useEffect, useRef, useState } from "react";
+import { FaPlay } from "react-icons/fa";
 import Spinner from "../spinner/Spinner";
 import { useTraduction } from "../../custom/TraductionDictionary";
 
@@ -7,34 +7,30 @@ const Playlists = () => {
   const [playlists, setPlaylists] = useState([]);
   const [loading, setLoading] = useState(true);
   const { t } = useTraduction();
+  const fetched = useRef(false);
   useEffect(() => {
-    // Función para obtener las playlists
+    if (fetched.current) return;
+    fetched.current = true;
+
     const fetchPlaylists = async () => {
       const token = localStorage.getItem("spotifyAccessToken");
-
-      if (!token) {
-        console.error("No hay token de acceso disponible");
-        return;
-      }
+      if (!token) return console.error("No hay token de acceso disponible");
 
       try {
         const response = await fetch(
-          "https://absolutify.onrender.com/spotify/playlists",
+          "http://localhost:3308/spotify/playlists",
           {
             method: "GET",
-            headers: {
-              Authorization: `Bearer ${token}`, // Enviar el token en los headers
-            },
+            headers: { Authorization: `Bearer ${token}` },
             credentials: "include",
           }
         );
 
-        if (!response.ok) {
+        if (!response.ok)
           throw new Error("No se pudieron obtener las playlists");
-        }
 
         const data = await response.json();
-        setPlaylists(data); // Guardar las playlists en el estado
+        setPlaylists(data);
       } catch (err) {
         console.error("Error al obtener las playlists:", err);
       } finally {
@@ -43,7 +39,7 @@ const Playlists = () => {
     };
 
     fetchPlaylists();
-  }, [playlists]);
+  }, []);
 
   if (loading) {
     return <Spinner />;
@@ -71,7 +67,7 @@ const Playlists = () => {
                     src={
                       playlist.images && playlist.images[0]
                         ? playlist.images[0].url
-                        : "/png/logoAbso.jpg"
+                        : "/png/logoAbso.webp"
                     }
                     alt="Playlist Logo"
                     className="object-cover w-full h-full rounded-lg"

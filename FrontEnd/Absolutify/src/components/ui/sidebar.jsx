@@ -56,12 +56,15 @@ export const DesktopSidebar = ({ className, children, ...props }) => {
     <>
       <motion.div
         className={cn(
-          "h-full px-4 py-4 hidden  md:flex md:flex-col border-r border-neutral-500 bg-neutral-900  w-[300px] flex-shrink-0",
+          "h-full px-4 py-4 hidden md:flex md:flex-col border-r border-neutral-500 bg-neutral-900",
+          "flex-shrink-0 min-w-[60px] transition-all",
           className
         )}
         animate={{
-          width: animate ? (open ? "200px" : "60px") : "300px",
+          width: animate ? (open ? "200px" : "60px") : "200px",
         }}
+        initial={false} // Para evitar el parpadeo inicial
+        transition={{ duration: 0.3 }} // Reducimos duración para evitar CLS
         onMouseEnter={() => setOpen(true)}
         onMouseLeave={() => setOpen(false)}
         {...props}
@@ -94,14 +97,8 @@ export const MobileSidebar = ({ className, children, ...props }) => {
               initial={{ x: "-100%", opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               exit={{ x: "-100%", opacity: 0 }}
-              transition={{
-                duration: 0.3,
-                ease: "easeInOut",
-              }}
-              className={cn(
-                "fixed h-full w-full inset-0  bg-neutral-500 p-10 z-[100] flex flex-col justify-between",
-                className
-              )}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+              className="fixed top-0 left-0 h-full w-[300px] bg-neutral-500 p-10 z-[100] flex flex-col justify-between"
             >
               <div
                 className="absolute z-50 right-10 top-10 text-stone-500 dark:text-neutral-200"
@@ -132,10 +129,10 @@ export const SidebarLink = ({ link, className, ...props }) => {
       {link.icon}
       <motion.span
         animate={{
-          display: animate ? (open ? "inline-block" : "none") : "inline-block",
+          visibility: animate ? (open ? "visible" : "hidden") : "visible",
           opacity: animate ? (open ? 1 : 0) : 1,
         }}
-        className="text-neutral-700 dark:text-neutral-200 text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0"
+        className="inline-block text-sm whitespace-pre transition duration-150 text-neutral-700 dark:text-neutral-200 group-hover/sidebar:translate-x-1"
       >
         {link.label}
       </motion.span>

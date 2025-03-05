@@ -20,3 +20,7 @@
 html {
   scroll-behavior: smooth;
 }
+img {
+  width: 100%;
+  height: auto;
+}

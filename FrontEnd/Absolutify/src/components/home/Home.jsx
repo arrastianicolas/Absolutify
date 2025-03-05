@@ -1,17 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { SidebarDemo } from "./SidebarDemo";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
-import { useProfile } from "../../contexts/UserContext";
-import Spinner from "../spinner/Spinner";
+
 import { ToastContainer } from "react-toastify";
+import { useProfile } from "../../contexts/UserContext";
 
 const Home = () => {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(true);
-  const [cookies] = useCookies(["spotifyAccessToken"]);
-
   const { fetchPerfil } = useProfile();
+  const [cookies] = useCookies(["spotifyAccessToken"]);
 
   useEffect(() => {
     const token = cookies.spotifyAccessToken;
@@ -22,24 +20,21 @@ const Home = () => {
       checkTokenValidity(token);
     } else {
       console.error("No se encontró el token de acceso");
-      logout(); // Cerrar sesión si no hay token
+      logout();
     }
-  }, [cookies, navigate]);
-
+  }, [cookies]);
   useEffect(() => {
-    setLoading(true);
-    fetchPerfil().finally(() => setLoading(false));
+    fetchPerfil();
   }, []);
 
   const logout = async () => {
     try {
-      const response = await fetch("https://absolutify.onrender.com/logout", {
+      const response = await fetch("http://localhost:3308/logout", {
         method: "POST",
         credentials: "include",
       });
 
       if (response.ok) {
-        // Eliminar tokens y cookies en el frontend
         localStorage.removeItem("spotifyAccessToken");
         localStorage.removeItem("isLoggedIn");
 
@@ -77,17 +72,13 @@ const Home = () => {
     }
   };
 
-  // Función para refrescar el token
   const refreshToken = async () => {
     try {
-      const response = await fetch(
-        "https://absolutify.onrender.com/spotify/refresh",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          credentials: "include",
-        }
-      );
+      const response = await fetch("http://localhost:3308/spotify/refresh", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+      });
 
       if (!response.ok) throw new Error("Error al refrescar el token");
 
@@ -103,10 +94,8 @@ const Home = () => {
     }
   };
 
-  if (loading) return <Spinner />;
-
   return (
-    <div className="h-screen bg-neutral-900 ">
+    <div className="h-screen bg-neutral-900">
       <SidebarDemo logout={logout} />
       <ToastContainer />
     </div>

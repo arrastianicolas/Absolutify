@@ -45,29 +45,29 @@ exports.callback = async (req, res) => {
     const { access_token, refresh_token } = response.data;
 
     res.cookie("spotifyAccessToken", access_token, {
-      httpOnly: true,
-      secure: true,
-      sameSite: "None",
-      domain: ".vercel.app",
+      httpOnly: false,
+      secure: false,
+      sameSite: "Strict",
+
       maxAge: 3600 * 1000,
     });
 
     res.cookie("spotifyRefreshToken", refresh_token, {
-      httpOnly: true,
-      secure: true,
-      sameSite: "None",
-      domain: ".vercel.app",
+      httpOnly: false,
+      secure: false,
+      sameSite: "Strict",
+
       maxAge: 30 * 24 * 60 * 60 * 1000,
     });
 
-    res.redirect("https://absolutify.vercel.app/home");
+    res.redirect("http://localhost:5173/home");
   } catch (error) {
     res.status(500).json({ error: error.response });
   }
 };
 
 exports.refresh = async (req, res) => {
-  const refreshToken = req.cookies.spotifyRefreshToken; // Obtener el refresh token desde el body
+  const refreshToken = req.cookies.spotifyRefreshToken;
 
   if (!refreshToken) {
     return res.status(400).json({ error: "No se proporcionó refresh_token." });
@@ -94,9 +94,9 @@ exports.refresh = async (req, res) => {
     accessToken = newAccessToken;
     // Guardar el nuevo access token en cookies
     res.cookie("spotifyAccessToken", newAccessToken, {
-      httpOnly: true,
-      secure: true,
-      sameSite: "None",
+      httpOnly: false,
+      secure: false,
+      sameSite: "Strict",
       maxAge: 3600 * 1000, // 1 hora
     });
 
@@ -200,7 +200,6 @@ exports.followPlaylist = async (req, res) => {
 };
 
 exports.meUsers = async (req, res) => {
-  // Ver las cookies en la consola
   const accessToken = req.cookies.spotifyAccessToken;
   if (!accessToken) {
     return res.status(401).json({ error: "No estás autenticado." });

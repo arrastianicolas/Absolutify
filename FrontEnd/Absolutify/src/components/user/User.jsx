@@ -9,8 +9,9 @@ const User = () => {
   const [eye, setEye] = useState(false);
 
   const handleShowEmail = () => {
-    setEye(!eye);
+    setEye((prev) => !prev);
   };
+
   return (
     <div className="flex justify-center w-full mx-auto 2xl:h-full xl:h-80 ">
       <div className="grid justify-center w-full mx-auto rounded-xl">
@@ -19,7 +20,7 @@ const User = () => {
         </h2>
         <div className="2xl:w-[200px] 2xl:h-[200px]   w-[140px] h-[140px]  md:rounded-xl mx-auto md:my-4">
           <img
-            src={user?.images?.[0]?.url || "/png/logoAbso.jpg"}
+            src={user?.images?.[0]?.url || "/png/logoAbso.webp"}
             alt="Imagen de perfil"
             className="object-fill w-full h-full rounded-full"
           />
@@ -31,10 +32,10 @@ const User = () => {
           {t("seguidores")}: {user?.followers.total}
         </p>
 
-        <div className="flex items-center justify-center mx-auto my-4">
+        <div className="flex items-center justify-center mx-auto my-4 ">
           <div className="flex items-center justify-center p-4 mx-auto rounded-full bg-zinc-900">
             <p className="flex items-center max-w-full 2xl:text-lg text-slate-300 font-questrial">
-              {eye ? user?.email : "*****************"}
+              {eye ? user?.email : "*".repeat(user?.email.length || 10)}
               <button onClick={handleShowEmail} className="p-1">
                 {eye ? (
                   <IoMdEye />

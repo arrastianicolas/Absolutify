@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { IoIosSearch } from "react-icons/io";
 import { usePlayback } from "../../contexts/PlayTrackContext";
 import { useTraduction } from "../../custom/TraductionDictionary";
@@ -42,7 +42,7 @@ const Nav = () => {
 
     try {
       const response = await fetch(
-        `https://absolutify.onrender.com/spotify/search?q=${encodeURIComponent(
+        `http://localhost:3308/spotify/search?q=${encodeURIComponent(
           query
         )}&type=${type}`,
         {
@@ -59,7 +59,6 @@ const Nav = () => {
       const results = data[spotifyType]?.items || [];
 
       setTracks(results);
-
       setShowFind(results.length > 0);
     } catch (err) {
       console.error("Error al obtener las tracks", err);
@@ -68,25 +67,29 @@ const Nav = () => {
     }
   };
 
-  const handleChangeSearch = (e) => {
+  const handleChangeSearch = useCallback((e) => {
     setSearchTerm(e.target.value);
-  };
+  }, []);
 
-  const handlePlayTrack = (track) => {
-    setSearchTerm("");
-    setCurrentTrackId(track.id);
-    setShowFind(false);
+  const handlePlayTrack = useCallback(
+    (track) => {
+      setSearchTerm("");
+      setCurrentTrackId(track.id);
+      setShowFind(false);
 
-    if (track.artists.length > 0) {
-      setCurrentArtistId(track.artists[0].id);
-    }
-  };
+      if (track.artists.length > 0) {
+        setCurrentArtistId(track.artists[0].id);
+      }
+    },
+    [setCurrentTrackId, setCurrentArtistId]
+  );
 
   return (
     <div className="relative w-full max-w-[500px] flex justify-center mx-auto">
       <IoIosSearch className="absolute text-xl transform -translate-y-1/2 left-3 top-1/2 text-stone-600" />
       <input
         placeholder={t("placeHolder")}
+        name="navegador"
         className="w-full p-2 pl-10 border-2 focus:outline-none bg-stone-300 font-questrial border-stone-700 rounded-2xl placeholder:text-stone-900"
         onChange={handleChangeSearch}
         value={searchTerm}

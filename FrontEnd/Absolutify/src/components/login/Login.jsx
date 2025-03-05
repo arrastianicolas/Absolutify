@@ -14,25 +14,23 @@ const Login = () => {
 
   const fetchLoginSpotify = () => {
     window.location.href =
-      "https://absolutify.onrender.com/spotify/login?show_dialog=true";
+      "http://localhost:3308/spotify/login?show_dialog=true";
   };
 
   return (
     <div className="relative flex items-center justify-center h-screen overflow-hidden">
-      {/* Fondo */}
       <img
-        src="/png/logoAbso.jpg"
+        src="/png/logoAbso.webp"
         className="absolute inset-0 object-cover w-full h-full"
         alt="Fondo Abso"
       />
       <div className="absolute inset-0 bg-black bg-opacity-70 backdrop-blur-md"></div>
 
-      {/* Contenido */}
       <div className="relative z-10 max-w-4xl px-6 text-center">
         <h1 className="text-6xl font-light text-white">{t("welcome")}</h1>
         <p className="mt-6 text-lg leading-7 text-gray-300">{t("loginP")}</p>
         <button
-          className="px-8 py-3 mt-10 text-lg text-white transition-all rounded-lg shadow-md font-questrial bg-cyan-900 hover:bg-neutral-500"
+          className="px-8 py-3 mt-10 text-lg text-white transition-all rounded-lg shadow-md font-questrial bg-cyan-900 hover:bg-cyan-800"
           onClick={fetchLoginSpotify}
         >
           {t("continuar")}
