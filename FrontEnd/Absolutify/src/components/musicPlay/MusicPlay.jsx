@@ -144,7 +144,7 @@ export default function MusicPlayerSlider() {
               >
                 {currentTrack?.artists
                   .map((artist) => artist.name)
-                  .join(", ") || "Unknown Artist"}
+                  .join(", ") || ""}
                 <style>
                   {`
           @keyframes scrollText {
@@ -156,10 +156,10 @@ export default function MusicPlayerSlider() {
               </Typography>
 
               <Typography noWrap>
-                <b>{currentTrack?.name || "Unknown name"}</b>
+                <b>{currentTrack?.name || ""}</b>
               </Typography>
               <Typography noWrap sx={{ letterSpacing: -0.25 }}>
-                {currentTrack?.type === "track" ? t("cancion") : "playlists"}
+                {currentTrack?.type === "track" ? t("cancion") : ""}
               </Typography>
             </Box>
           </Box>

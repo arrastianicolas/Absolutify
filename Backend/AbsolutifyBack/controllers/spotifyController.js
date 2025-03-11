@@ -135,8 +135,8 @@ exports.getUserPlaylists = async (req, res) => {
 };
 
 exports.searchTracks = async (req, res) => {
-  const query = req.query.q; // Obtiene el término de búsqueda
-  const type = req.query.type; // Obtiene el tipo (track, album, playlist)
+  const query = req.query.q;
+  const type = req.query.type;
   const accessToken = req.cookies.spotifyAccessToken;
 
   if (!accessToken) {

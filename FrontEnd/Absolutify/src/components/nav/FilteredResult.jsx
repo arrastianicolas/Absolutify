@@ -1,5 +1,6 @@
 import { useCookies } from "react-cookie";
 import { toast } from "react-toastify";
+import { useTraduction } from "../../custom/TraductionDictionary";
 
 const FilteredResult = ({
   tracks,
@@ -8,7 +9,7 @@ const FilteredResult = ({
   currentFilter,
 }) => {
   const [cookies] = useCookies(["spotifyAccessToken"]);
-
+  const { t } = useTraduction();
   const handleSavePlaylist = async (playlist) => {
     const token = cookies.spotifyAccessToken;
 
@@ -55,9 +56,9 @@ const FilteredResult = ({
             }`}
           >
             {type === "track"
-              ? "Canciones"
+              ? t("filterCancion")
               : type === "album"
-              ? "Álbumes"
+              ? t("filterAlbumes")
               : "Playlists"}
           </button>
         ))}

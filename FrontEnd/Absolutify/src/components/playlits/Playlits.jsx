@@ -60,9 +60,9 @@ const Playlists = () => {
             playlists.map((playlist) => (
               <div
                 key={playlist.id}
-                className="bg-stone-200 bg-opacity-20 rounded-lg 2xl:w-[350px] xl:w-[250px] xl:h-[78px] 2xl:h-[100px] h-20 flex justify-start items-center hover:scale-110 hover:cursor-pointer transition-all relative group"
+                className="bg-stone-200 bg-opacity-20 rounded-lg 2xl:w-[350px] xl:w-[250px]  w-[300px] xl:h-[78px] 2xl:h-[100px] h-20 flex justify-start items-center hover:scale-110 hover:cursor-pointer transition-all relative group"
               >
-                <div className="2xl:w-[100px] xl:w-[80px] w-[90px]  h-full ">
+                <div className="2xl:w-[150px] xl:w-[80px] w-[120px]  h-full ">
                   <img
                     src={
                       playlist.images && playlist.images[0]
@@ -74,13 +74,13 @@ const Playlists = () => {
                   />
                 </div>
 
-                <div className="flex justify-start p-4 my-auto w-44">
-                  <p className="text-sm font-questrial text-slate-100 2xl:text-lg xl:text-sm">
+                <div className="flex justify-start w-full p-4 my-auto overflow-hidden">
+                  <p className="text-sm truncate font-questrial text-slate-100 2xl:text-lg xl:text-sm">
                     {playlist?.name || "Playlist"}
                   </p>
                 </div>
 
-                <div className="absolute p-2 transition-opacity duration-300 transform -translate-y-1/2 rounded-full opacity-0 bg-neutral-500 right-2 md:top-1/2 top-3/4 group-hover:opacity-100">
+                <div className="absolute p-2 transition-opacity duration-300 transform -translate-y-1/2 rounded-full opacity-0 bg-neutral-500 right-2 top-1/2 group-hover:opacity-100">
                   <FaPlay
                     className="relative left-[1px] text-slate-100"
                     size={20}

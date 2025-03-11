@@ -9,11 +9,11 @@ import { useLocation } from "react-router-dom";
 import MusicPlayerSlider from "../musicPlay/MusicPlay";
 import { BsPersonFill } from "react-icons/bs";
 import { DiAptana } from "react-icons/di";
-
 import { GoArrowLeft } from "react-icons/go";
-
 import { useProfile } from "../../contexts/UserContext";
 import { useTraduction } from "../../custom/TraductionDictionary";
+import ArtistTop from "./ArtistTop";
+import TracksTop from "./TracksTop";
 
 export function SidebarDemo({ logout }) {
   const { user } = useProfile();
@@ -87,7 +87,7 @@ export function SidebarDemo({ logout }) {
                 to: "/home/perfil",
                 icon: (
                   <img
-                    src={user?.images?.[0]?.url || "/png/logo.png"}
+                    src={user?.images?.[0]?.url || "/png/logoAbso.webP"}
                     className="flex-shrink-0 object-cover rounded-full h-7 w-7"
                     width={50}
                     height={50}
@@ -138,7 +138,6 @@ const Dashboard = () => {
   const location = useLocation();
   const [tracksTop, setTracksTop] = useState([]);
   const [artistsTop, setArtistsTop] = useState([]);
-  const { t } = useTraduction();
 
   useEffect(() => {
     const fetchTopArtist = async () => {
@@ -208,65 +207,8 @@ const Dashboard = () => {
         <>
           <div className="grid bg-neutral-800 border border-stone-500 mx-auto p-3 rounded-xl  items-center justify-center md:max-h-[800px] max-h-[550px] 2xl:my-20 xl:my-10 md:overflow-hidden overflow-y-scroll grid-cols-1 gap-2">
             <div className="grid justify-center gap-10 mx-auto md:gap-20 md:flex ">
-              <div className="relative flex flex-col items-center justify-center gap-4 md:gap-11 top-4 md:top-0">
-                <h2 className="text-2xl 2xl:text-3xl text-slate-300 font-questrial">
-                  {t("artists")}
-                </h2>
-                <div className="grid w-full h-auto grid-cols-2 gap-5 mx-auto 2xl:gap-10 xl:gap-7 rounded-xl">
-                  {artistsTop.map((artist) => (
-                    <motion.div
-                      className="relative 2xl:w-[160px] 2xl:h-[160px] xl:w-[120px] xl:h-[120px] w-[160px] h-[160px] xl:bottom-7 overflow-x-hidden rounded-xl"
-                      key={artist.id}
-                      transition={{ duration: 5, ease: "easeInOut" }}
-                    >
-                      <motion.img
-                        src={artist.images[0].url}
-                        alt={artist.name}
-                        className="object-cover w-full h-full max-h-[200px] rounded-xl"
-                        whileHover={{ opacity: 0.5 }}
-                      />
-
-                      <motion.div
-                        className="absolute inset-0 flex items-center justify-center text-lg bg-black bg-opacity-50 opacity-0 text-slate-300"
-                        whileHover={{ opacity: 1 }}
-                        transition={{ duration: 0.5 }}
-                      >
-                        {artist.name}
-                      </motion.div>
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="relative flex flex-col items-center justify-center gap-4 md:gap-11 md:top-0">
-                <h2 className="text-2xl 2xl:text-3xl text-slate-300 font-questrial">
-                  {t("tracks")}
-                </h2>
-                <div className="grid w-full h-auto grid-cols-2 gap-5 mx-auto 2xl:gap-10 xl:gap-7 rounded-xl">
-                  {tracksTop.map((track) => (
-                    <motion.div
-                      className="relative 2xl:w-[160px] 2xl:h-[160px] xl:w-[120px] xl:h-[120px] w-[160px] h-[160px] xl:bottom-7 overflow-x-hidden rounded-xl"
-                      key={track.album.id}
-                      transition={{ duration: 5, ease: "easeInOut" }}
-                    >
-                      <motion.img
-                        src={track.album.images[0].url}
-                        alt={track.album.name}
-                        className="object-cover w-full h-full max-h-[200px] rounded-xl"
-                        whileHover={{ opacity: 0.5 }}
-                      />
-
-                      <motion.div
-                        className="absolute inset-0 flex items-center justify-center text-lg bg-black bg-opacity-50 opacity-0 text-slate-300"
-                        whileHover={{ opacity: 1 }}
-                        transition={{ duration: 0.5 }}
-                      >
-                        {track.album.name}
-                      </motion.div>
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
+              <ArtistTop artistsTop={artistsTop} />
+              <TracksTop tracksTop={tracksTop} />
             </div>
           </div>
         </>
